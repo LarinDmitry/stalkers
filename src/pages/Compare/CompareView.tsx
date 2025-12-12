@@ -11,7 +11,7 @@ import {selectUserConfiguration} from 'store/userSlice';
 import {backgroundColor, hoverBackgroundColor} from 'pages/Main/MainUtils';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from './CompareUtils';
-import {latestZveks} from '../../DATA';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
@@ -19,6 +19,7 @@ const CompareView = () => {
   const {id} = useParams<{id: string}>();
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
+  const {latestZveks} = useAppSelector(selectDataConfiguration);
 
   useEffect(() => {
     ReactGA.send({hitType: 'compare', page: location.pathname});

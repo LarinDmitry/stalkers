@@ -4,10 +4,11 @@ import en from './GlobalLocalization/EN';
 import uk from './GlobalLocalization/UK';
 import ru from './GlobalLocalization/RU';
 import SvgIcon from '@mui/material/SvgIcon';
-import {latestZveks, guildStatistic} from 'src/DATA';
 import UK from 'assets/icons/language_uk.svg';
 import EN from 'assets/icons/language_en.svg';
 import RU from 'assets/icons/language_ru.svg';
+import {useAppSelector} from 'services/hooks';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 export interface LocalizationObjProps {
   [key: string]: {
@@ -33,8 +34,10 @@ export const stateReducer = (state: any, action: any) => ({...state, ...action})
 const localizationObj = {en, uk, ru} as LocalizationObjProps;
 export const globalLocalization = (language: string) => localizationObj[language];
 
-export const calculateTopPlayersData = (topN: number): TopPlayerData[] =>
-  latestZveks[0].info
+export const calculateTopPlayersData = (topN: number): TopPlayerData[] => {
+  const {latestZveks} = useAppSelector(selectDataConfiguration);
+
+  return latestZveks[0].info
     .map(({date, guildTotal}, index) => {
       if (guildTotal === 0) return null;
 
@@ -56,13 +59,17 @@ export const calculateTopPlayersData = (topN: number): TopPlayerData[] =>
       };
     })
     .filter((item) => item !== null);
+};
 
-export const useGuildData = () =>
-  guildStatistic.map(({total, rate, date}, index, arr) => {
+export const useGuildData = () => {
+  const {guildStatistic} = useAppSelector(selectDataConfiguration);
+
+  return guildStatistic.map(({total, rate, date}, index, arr) => {
     const previous = arr[index - 1]?.total || 0;
     const percentageChange = index > 0 && previous > 0 ? ((total - previous) / previous) * 100 : null;
     return {total, percentageChange, rate, date};
   });
+};
 
 const Icon = styled(SvgIcon)`
   &.MuiSvgIcon-root {

@@ -9,13 +9,14 @@ import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from './DetailsUtils';
-import {latestZveks} from '../../DATA';
 import {font_body_2_reg, font_header_6_reg} from 'theme/fonts';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 const DetailsView = () => {
   const {id} = useParams<{id: string}>();
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
+  const {latestZveks} = useAppSelector(selectDataConfiguration);
 
   useEffect(() => {
     ReactGA.send({hitType: 'details', page: location.pathname});

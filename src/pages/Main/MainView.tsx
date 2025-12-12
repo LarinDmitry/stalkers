@@ -12,18 +12,19 @@ import useQuery from 'services/useQuery';
 import {selectUserConfiguration} from 'store/userSlice';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from './MainUtils';
-import {latestZveks} from '../../DATA';
 import Compare from 'assets/icons/compare.svg';
 import {font_header_5_bold, font_body_2_reg} from 'theme/fonts';
 import BackBtn from 'components/GeneralComponents/BackBtn';
-
-const {guildTotal, date} = latestZveks[0].info[latestZveks[0].info.length - 1];
+import {selectDataConfiguration} from 'store/dataSlice';
 
 const MainView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobile, ,] = useQuery();
   const {language, selectedItems} = useAppSelector(selectUserConfiguration);
+  const {latestZveks} = useAppSelector(selectDataConfiguration);
+
+  const {guildTotal, date} = latestZveks[0].info[latestZveks[0].info.length - 1];
 
   useEffect(() => {
     ReactGA.send({hitType: 'main', page: location.pathname});

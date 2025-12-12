@@ -14,18 +14,21 @@ import {
 } from 'chart.js';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
+import {selectDataConfiguration} from 'store/dataSlice';
 import {localization} from '../DashboardUtils';
 import {BlockStyles} from 'pages/Dashboard/DashboardStyled';
-import {guildStatistic} from '../../../DATA';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler);
 
+type StatKey = 'total' | 'rate' | 'newbies';
+
 const Charts = () => {
   const {language} = useAppSelector(selectUserConfiguration);
+  const {guildStatistic} = useAppSelector(selectDataConfiguration);
 
   const extractedData = useMemo(
     () =>
-      guildStatistic.reduce<Record<string, (string | number)[]>>(
+      guildStatistic.reduce<{labels: string[], total: number[], rate: number[], newbies: number[]}>(
         (acc, {date, total, rate, newbies}) => {
           acc.labels.push(date);
           acc.total.push(total);
@@ -100,7 +103,7 @@ const Charts = () => {
 
   const {TOTAL, RATE, NEW} = localization(language);
 
-  const chartsConfig = [
+  const chartsConfig: {key: StatKey; color: string; title: string}[] = [
     {key: 'total', color: 'rgba(72, 99, 235, 0.7)', title: TOTAL},
     {key: 'rate', color: 'rgba(68, 217, 38, 0.7)', title: RATE},
     {key: 'newbies', color: 'rgba(235, 72, 99, 0.7)', title: NEW},

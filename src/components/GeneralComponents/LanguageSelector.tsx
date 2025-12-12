@@ -39,8 +39,8 @@ const Wrapper = styled(Select)`
   &.MuiInputBase-root {
     z-index: 1;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 1rem;
+    right: 2rem;
     color: ${({theme}) => theme.colors.gray000};
     outline: none;
 

@@ -5,10 +5,10 @@ import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {useGuildData, globalLocalization} from 'services/GlobalUtils';
 import {localization} from '../DashboardUtils';
-import {latestZveks, guildStatistic} from 'src/DATA';
 import Increase from 'assets/icons/increase.svg';
 import Decrease from 'assets/icons/decrease.svg';
 import {font_body_2_bold, mediumWeight} from 'theme/fonts';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 interface PlayerData {
   name: string;
@@ -19,6 +19,7 @@ interface PlayerData {
 
 const Bars = () => {
   const {language} = useAppSelector(selectUserConfiguration);
+  const {latestZveks, guildStatistic} = useAppSelector(selectDataConfiguration);
   const guildData = useGuildData();
 
   const playerData: PlayerData[] = useMemo(

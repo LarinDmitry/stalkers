@@ -12,8 +12,8 @@ import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from '../StatisticUtils';
-import {latestZveks} from '../../../DATA';
 import {boldWeight} from 'theme/fonts';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 interface PlayerData {
   name: string;
@@ -24,6 +24,7 @@ interface PlayerData {
 
 const DamageDecrease = () => {
   const {language} = useAppSelector(selectUserConfiguration);
+  const {latestZveks} = useAppSelector(selectDataConfiguration);
   const {LAST_ZVEK, DECREASE} = localization(language);
   const {NICKNAME, LATEST_ZVEK} = globalLocalization(language);
 

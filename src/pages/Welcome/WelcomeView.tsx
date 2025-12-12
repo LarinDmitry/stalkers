@@ -3,10 +3,12 @@ import {useLocation, useNavigate} from 'react-router';
 import ReactGA from 'react-ga4';
 import styled, {keyframes} from 'styled-components';
 import LanguageSelector from 'components/GeneralComponents/LanguageSelector';
+import DataSelector from 'components/GeneralComponents/DataSelector';
 import Button from '@mui/material/Button';
 import {useAppSelector} from 'services/hooks';
 import {welcomeTitleStyles} from 'services/GlobalStyled';
 import {selectUserConfiguration} from 'store/userSlice';
+import {selectDataConfiguration} from 'store/dataSlice';
 import {localization} from './WelcomeUtils';
 import Background from 'assets/images/background.webp';
 import {font_body_2_reg, font_header_6_bold} from 'theme/fonts';
@@ -15,6 +17,7 @@ const WelcomeView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
+  const {selectedSource} = useAppSelector(selectDataConfiguration);
 
   useEffect(() => {
     ReactGA.send({hitType: 'welcome', page: location.pathname});
@@ -25,6 +28,7 @@ const WelcomeView = () => {
   return (
     <Wrapper>
       <LanguageSelector language={language} />
+      <DataSelector selectedSource={selectedSource} />
       <Leaves>
         {Array.from({length: 25}).map((_, index) => {
           const is3DAnimation = Math.random() > 0.5;

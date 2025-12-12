@@ -8,10 +8,10 @@ import useQuery from 'services/useQuery';
 import {selectUserConfiguration, setSortConfig, selectAllItems, clearSelection} from 'store/userSlice';
 import {heroImages, qualityImages, localization} from 'pages/Main/MainUtils';
 import {globalLocalization} from 'services/GlobalUtils';
-import {teamDetails} from '../../../DATA';
 import Gey from 'assets/images/gey.png';
 import Arrow from 'assets/icons/arrow.svg';
 import {font_body_4_bold} from 'theme/fonts';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 interface Props {
   total: number;
@@ -25,6 +25,7 @@ const Table: FC<Props> = ({data, total}) => {
   const dispatch = useAppDispatch();
   const [, , isLaptop] = useQuery();
   const {sortConfig, selectedItems, language} = useAppSelector(selectUserConfiguration);
+  const {teamDetails} = useAppSelector(selectDataConfiguration);
 
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
 

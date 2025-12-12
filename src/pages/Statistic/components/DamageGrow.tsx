@@ -12,11 +12,12 @@ import {selectUserConfiguration} from 'store/userSlice';
 import {localization} from '../StatisticUtils';
 import {globalLocalization} from 'services/GlobalUtils';
 import {useGuildData} from 'services/GlobalUtils';
-import {guildStatistic} from '../../../DATA';
 import {boldWeight} from 'theme/fonts';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 const DamageGrow = () => {
   const {language} = useAppSelector(selectUserConfiguration);
+  const {guildStatistic} = useAppSelector(selectDataConfiguration);
   const {DATE, DAMAGE_GUILD, CHANGES} = localization(language);
   const {NO_DATA, GUILD_RATING, NEWBIES} = globalLocalization(language);
   const headerValues = [DATE, DAMAGE_GUILD, CHANGES, GUILD_RATING, NEWBIES];

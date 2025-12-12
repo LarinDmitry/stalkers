@@ -12,16 +12,17 @@ import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {calculateTopPlayersData} from 'services/GlobalUtils';
 import {localization} from '../DashboardUtils';
-import {latestZveks} from 'src/DATA';
 import {BlockStyles} from 'pages/Dashboard/DashboardStyled';
 import ArrowLink from 'assets/icons/arrow_link.svg';
 import {font_body_1_bold} from 'theme/fonts';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const Tops = () => {
-  const {language} = useAppSelector(selectUserConfiguration);
   const navigate = useNavigate();
+  const {language} = useAppSelector(selectUserConfiguration);
+  const {latestZveks} = useAppSelector(selectDataConfiguration);
 
   const {NAME, TOTAL, DAMAGE, IMPACT, TOP_PLAYERS, OTHERS} = localization(language);
 

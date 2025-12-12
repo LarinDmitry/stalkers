@@ -11,11 +11,12 @@ import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {calculateGini} from '../StatisticUtils';
 import {localization} from '../StatisticUtils';
-import {latestZveks} from '../../../DATA';
 import {boldWeight} from 'theme/fonts';
+import {selectDataConfiguration} from 'store/dataSlice';
 
 const Djinni = () => {
   const {language} = useAppSelector(selectUserConfiguration);
+  const {latestZveks} = useAppSelector(selectDataConfiguration);
 
   const uniqueDates = useMemo(
     () =>
