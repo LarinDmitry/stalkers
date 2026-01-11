@@ -920,7 +920,7 @@ export const guildStatistic = [
   {
     date: '01.26',
     total: 1570841776221830,
-    rate: 0,
+    rate: 50,
     newbies: 7,
   },
 ];
