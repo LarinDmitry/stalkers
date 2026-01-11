@@ -726,8 +726,8 @@ export const latestZveks = [
 export const teamDetails = [
   {
     name: 'DyrachYO',
-    damageDealer: 'aspen',
-    quality: 's',
+    damageDealer: 'williams',
+    quality: 'a',
     stars: 16,
     temple: 20,
   },

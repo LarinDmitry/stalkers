@@ -3,12 +3,6 @@ export const latestZveks = [
     name: 'saintNikolas',
     info: [
       {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
-      {
         damage: 2869033129049,
         date: '10.25',
         guildTotal: 1070436458949270,
@@ -20,63 +14,63 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [869044740, 75179817261, 1147238383618, 1136155392990, 437315895434, 325154326],
       },
-    ],
-  },
-  {
-    name: 'ltv90',
-    info: [
       {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
-      {
-        damage: 193872325529,
-        date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [1440588, 4164161067, 14005168891, 67573970720, 44267782523, 63859801740],
-      },
-      {
-        damage: 31944070107,
-        date: '11.25',
-        guildTotal: 1055022942841880,
-        damageByDay: [1440588, 417798522, 3718482392, 5872206609, 21909335427, 24806569],
+        damage: 685320181344,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [2711930106, 129781370497, 548146409794, 1593047498, 2143564196, 943859253],
       },
     ],
   },
   {
-    name: 'Mpozb',
+    name: 'Артуха',
     info: [
       {
         damage: 1,
-        date: '09.25',
-        guildTotal: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
         damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 734290311260,
+        damage: 1,
         date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [529170690, 60979740300, 134715968685, 169104677706, 185710434840, 183250319039],
+        guildTotal: 1055022942841880,
+        damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 99447538752849,
-        date: '11.25',
+        damage: 11935092605639,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [45694421, 2861071147354, 9060558792495, 10145899914, 961971698, 2309099757],
+      },
+    ],
+  },
+  {
+    name: 'Никола',
+    info: [
+      {
+        damage: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
+        damageByDay: [0, 0, 0, 0, 0, 0],
+      },
+      {
+        damage: 1,
+        date: '10.25',
         guildTotal: 1055022942841880,
-        damageByDay: [2087441194, 16149052665588, 18771891686605, 33790390181059, 30729327768743, 4789009660],
+        damageByDay: [0, 0, 0, 0, 0, 0],
+      },
+      {
+        damage: 13104262443445,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [146020705975, 3244407108588, 9206809939424, 103389286177, 174589007377, 229046395904],
       },
     ],
   },
   {
     name: 'MytuDobro',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 3420577687393,
         date: '10.25',
@@ -89,17 +83,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [736017846, 27640464339, 126064723503, 126601016422, 229032004400, 651919509],
       },
+      {
+        damage: 50674087141802,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [270722508, 9096360140753, 41435245628399, 27537016358, 55481798425, 59191835359],
+      },
     ],
   },
   {
     name: 'Граф',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 19550483373418,
         date: '10.25',
@@ -112,17 +106,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [0, 1206109163688, 702785595145, 6441581843621, 1890380196528, 0],
       },
+      {
+        damage: 2084863187656,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [0, 1576250643, 1950578661090, 0, 65097293086, 67610982837],
+      },
     ],
   },
   {
     name: 'Gamer',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 287099275379162,
         date: '10.25',
@@ -135,17 +129,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [4496302392, 3563711864576, 34277015265326, 64915286166797, 753414384, 1237348627],
       },
+      {
+        damage: 155642352409197,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [5938501665, 44156586414451, 111474749932890, 2050782156, 984164700, 2042613335],
+      },
     ],
   },
   {
     name: 'демон',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 0,
         date: '10.25',
@@ -156,65 +150,65 @@ export const latestZveks = [
         damage: 1420821353104,
         date: '11.25',
         guildTotal: 1055022942841880,
-        damageByDay: [425214640,	130987376338,	363710739644,	307103635133,	613797144827,	4797242522],
+        damageByDay: [425214640, 130987376338, 363710739644, 307103635133, 613797144827, 4797242522],
+      },
+      {
+        damage: 8002477063656,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [6484074195, 1597431658118, 5930911878452, 242955881134, 156878358581, 67815213176],
       },
     ],
   },
   {
-    name: 'MadHatter',
+    name: 'нотно',
     info: [
       {
         damage: 1,
-        date: '09.25',
-        guildTotal: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
         damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 537354196968,
+        damage: 1,
         date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [81629896, 41645607285, 0, 495626959787, 0, 0],
+        guildTotal: 1055022942841880,
+        damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 180287840791,
-        date: '11.25',
-        guildTotal: 1055022942841880,
-        damageByDay: [107650142, 19884525412, 160295665237, 0, 0, 0],
+        damage: 74861580906710,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [736369746, 30424838708324, 44238775579041, 134159373671, 38898628111, 24172247817],
       },
     ],
   },
   {
-    name: 'Miraika',
+    name: 'Burbulak',
     info: [
       {
         damage: 1,
-        date: '09.25',
-        guildTotal: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
         damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 46512488404,
+        damage: 1,
         date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [10195269, 5923305609, 9480240414, 25355588286, 0, 5743158826],
+        guildTotal: 1055022942841880,
+        damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 153777411400,
-        date: '11.25',
-        guildTotal: 1055022942841880,
-        damageByDay: [75020337, 21927398959, 37947108846, 93827033444, 595183, 254631],
+        damage: 285676936738,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [473672649, 68350588366, 215441720072, 397996365, 342539184, 670420102],
       },
     ],
   },
   {
     name: 'Moin Nord',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 656449903778,
         date: '10.25',
@@ -227,17 +221,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [384660, 70833546623, 178849998733, 350789661966, 1615324608, 311815646],
       },
+      {
+        damage: 293866319243,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [10238398, 76726819926, 195706776795, 10485110229, 8888776809, 2048597086],
+      },
     ],
   },
   {
     name: 'r2das7ff',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 130441759024,
         date: '10.25',
@@ -250,17 +244,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [3714307342, 12084534233006, 22708423094169, 60031594694935, 3220668815912, 157402046],
       },
+      {
+        damage: 107952779703509,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [7388511935, 49342343902611, 58599093060860, 1432173082, 609902490, 1912152531],
+      },
     ],
   },
   {
     name: 'R410A',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 7252473594546,
         date: '10.25',
@@ -273,17 +267,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [3414570102, 654209020617, 1858423835333, 2176995254611, 2446668228143, 68575246515],
       },
+      {
+        damage: 18012923439590,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [4992537654, 2670250768279, 14223167329928, 408655527164, 215521217258, 490336059307],
+      },
     ],
   },
   {
     name: 'Avis',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 27811862144672,
         date: '10.25',
@@ -296,17 +290,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [658865596, 5067485832543, 21980652316147, 15818148506434, 16660991934957, 486325948],
       },
+      {
+        damage: 54659669711301,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [8669631884, 19107818585550, 35496184088201, 8931086197, 12949746108, 25116573361],
+      },
     ],
   },
   {
     name: 'B3N4Ik',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 0,
         date: '10.25',
@@ -319,17 +313,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [747986914, 726782585782, 1798824106738, 9021371340014, 4747532815572, 14751908373],
       },
+      {
+        damage: 1054259423236,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [1440588, 313279673069, 677734251638, 28431281971, 13264516074, 21548259896],
+      },
     ],
   },
   {
     name: 'Танк',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 762666096487,
         date: '10.25',
@@ -342,17 +336,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [293433423, 17200896281, 72125444344, 104948881249, 215779234, 361773278],
       },
+      {
+        damage: 615765067177,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [1686450737, 201181540668, 149668782326, 117804094868, 84718107674, 60706090904],
+      },
     ],
   },
   {
     name: 'aziria',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 396863379774,
         date: '10.25',
@@ -365,17 +359,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [86411094, 25530423277, 110342813647, 66542188538, 89376982072, 64164975],
       },
+      {
+        damage: 183846985176,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [384660, 50212285476, 130546369967, 897810464, 1683699905, 506434704],
+      },
     ],
   },
   {
     name: 'Grimmjow',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 4289550825778,
         date: '10.25',
@@ -388,17 +382,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [590173290, 3547053210510, 4964724531803, 3668134565918, 5640241949826, 30241720],
       },
+      {
+        damage: 19526264420246,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [365247049, 992698725492, 18505362097868, 18452996666, 2662292061, 6723061110],
+      },
     ],
   },
   {
     name: 'jOylesgo',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 22631564831135,
         date: '10.25',
@@ -411,17 +405,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [2589633233, 1535320011489, 5750093526731, 5009213076075, 4860061572576, 293270710],
       },
+      {
+        damage: 126715442484991,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [17364558891, 6571662162913, 118827674675240, 655953480047, 373186633943, 269600973957],
+      },
     ],
   },
   {
     name: 'mr.FM',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 324140813421638,
         date: '10.25',
@@ -434,17 +428,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [93021940018, 53673590382360, 72509880973598, 129509282069430, 74068993653563, 11721268837048],
       },
+      {
+        damage: 510925506293296,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [1686452622002, 69850661847509, 33759722290745, 100161863524590, 171708416545760, 133758389462690],
+      },
     ],
   },
   {
     name: 'Piligrim',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 979124536864,
         date: '10.25',
@@ -457,17 +451,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [494910338, 106487214846, 292185072518, 405828917761, 985958034, 4669699030],
       },
+      {
+        damage: 4091716419560,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [1736322550, 3893725369820, 129371500963, 16604886846, 20656187118, 29622152263],
+      },
     ],
   },
   {
     name: 'Royalty',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 112696759203,
         date: '10.25',
@@ -480,63 +474,63 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [184479713, 11004407202, 71524823680, 81671233745, 105854856544, 1828451188],
       },
-    ],
-  },
-  {
-    name: 'RusLAN',
-    info: [
       {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
-      {
-        damage: 427178077981,
-        date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [83632346, 29348112127, 101969306267, 120035629872, 152348934321, 23392463048],
-      },
-      {
-        damage: 811120320550,
-        date: '11.25',
-        guildTotal: 1055022942841880,
-        damageByDay: [269567883, 45441935329, 130894348772, 297336408699, 337140036460, 38023407],
+        damage: 1733639295715,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [1165197670, 257627851223, 1190274417247, 191000497009, 47575035141, 45996297425],
       },
     ],
   },
   {
-    name: 'Werebear',
+    name: 'Cherdak',
     info: [
       {
         damage: 1,
-        date: '09.25',
-        guildTotal: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
         damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 94904125031,
+        damage: 1,
         date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [212598073, 7525401142, 0, 77529531861, 9338569857, 298024098],
+        guildTotal: 1055022942841880,
+        damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 190927834418,
-        date: '11.25',
+        damage: 69051944468150,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [2591552284, 22345036414853, 37010533925919, 5965525315136, 675372287783, 3052884972175],
+      },
+    ],
+  },
+  {
+    name: 'hate',
+    info: [
+      {
+        damage: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
+        damageByDay: [0, 0, 0, 0, 0, 0],
+      },
+      {
+        damage: 1,
+        date: '10.25',
         guildTotal: 1055022942841880,
-        damageByDay: [31495076, 33490156103, 131555304273, 25745644942, 40349342, 64884682],
+        damageByDay: [0, 0, 0, 0, 0, 0],
+      },
+      {
+        damage: 68431153113703,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [7708109225, 11923007533711, 51547764744952, 15323602998, 593826875680, 4343522247137],
       },
     ],
   },
   {
     name: 'Winchester',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 17979492614196,
         date: '10.25',
@@ -549,63 +543,63 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [38788173, 411478639676, 2294941099887, 5414717600153, 40440493631998, 1403947001],
       },
-    ],
-  },
-  {
-    name: 'Xenon',
-    info: [
       {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
-      {
-        damage: 582624481177,
-        date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [17723687, 69894112452, 104415896256, 57275833467, 351020915315, 0],
-      },
-      {
-        damage: 552888484189,
-        date: '11.25',
-        guildTotal: 1055022942841880,
-        damageByDay: [190296820, 26528972027, 88862596750, 437301400694, 2214787, 3003111],
+        damage: 176867844610383,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [311391607901, 68607467979939, 45890088626947, 45027271163756, 13152027078881, 3879598152959],
       },
     ],
   },
   {
-    name: 'sanjok',
+    name: 'PriZrak',
     info: [
       {
         damage: 1,
-        date: '09.25',
-        guildTotal: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
         damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 243369207285,
+        damage: 1,
         date: '10.25',
-        guildTotal: 1070436458949270,
-        damageByDay: [2797916, 6825720553, 24319239994, 54943098699, 5116919939, 152161430184],
+        guildTotal: 1055022942841880,
+        damageByDay: [0, 0, 0, 0, 0, 0],
       },
       {
-        damage: 261388930803,
-        date: '11.25',
+        damage: 8144481074240,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [28892303125, 1608086292862, 1879057650040, 2077949086197, 1073493962659, 1477001779357],
+      },
+    ],
+  },
+  {
+    name: 'Strong_Sem',
+    info: [
+      {
+        damage: 1,
+        date: '10.25',
+        guildTotal: 1070436458949270,
+        damageByDay: [0, 0, 0, 0, 0, 0],
+      },
+      {
+        damage: 1,
+        date: '10.25',
         guildTotal: 1055022942841880,
-        damageByDay: [9562269, 9318842716, 91653968772, 60933410230, 99442011267, 31135549],
+        damageByDay: [0, 0, 0, 0, 0, 0],
+      },
+      {
+        damage: 1,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [0, 0, 0, 0, 0, 0],
       },
     ],
   },
   {
     name: 'sho0ter',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 2336728818290,
         date: '10.25',
@@ -618,17 +612,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [489307340, 106907266386, 264058994940, 219225823274, 137589335, 3532115794],
       },
+      {
+        damage: 315858928991,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [62998973, 91161582599, 221570277147, 420053269, 1830495337, 813521666],
+      },
     ],
   },
   {
     name: 'Ḿ∀₤∀ђ',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 18500269930251,
         date: '10.25',
@@ -641,17 +635,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [10238398, 2742276679532, 7891553700800, 17125338123260, 9907985830, 22357246],
       },
+      {
+        damage: 21374229247132,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [1291261001, 5135642724285, 16237212094334, 20491394, 40840209, 21835909],
+      },
     ],
   },
   {
     name: 'Unbelievable',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 17369386872403,
         date: '10.25',
@@ -664,17 +658,17 @@ export const latestZveks = [
         guildTotal: 1055022942841880,
         damageByDay: [6851464698, 22903792970143, 43197843424710, 98099840364500, 34454087735881, 1221855768],
       },
+      {
+        damage: 63306244172634,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [3151703266, 19943614215423, 43180335782514, 112214890480, 31061478832, 35866102119],
+      },
     ],
   },
   {
     name: 'Zeusic',
     info: [
-      {
-        damage: 1,
-        date: '09.25',
-        guildTotal: 1,
-        damageByDay: [0, 0, 0, 0, 0, 0],
-      },
       {
         damage: 375608632857,
         date: '10.25',
@@ -686,6 +680,12 @@ export const latestZveks = [
         date: '11.25',
         guildTotal: 1055022942841880,
         damageByDay: [88773230, 53223517669, 90382234862, 104759369434, 25583085, 22869304],
+      },
+      {
+        damage: 308628167371,
+        date: '01.26',
+        guildTotal: 1570841776221830,
+        damageByDay: [374841897, 106976214449, 201158739852, 41273271, 48188500, 28909402],
       },
     ],
   },
@@ -700,15 +700,15 @@ export const teamDetails = [
     temple: 10,
   },
   {
-    name: 'ltv90',
-    damageDealer: 'aspen',
+    name: 'Артуха',
+    damageDealer: 'nataly',
     quality: 'b+',
     stars: 10,
     temple: 10,
   },
   {
-    name: 'Mpozb',
-    damageDealer: 'mokman',
+    name: 'Никола',
+    damageDealer: 'vulkan',
     quality: 'a-',
     stars: 10,
     temple: 10,
@@ -742,15 +742,15 @@ export const teamDetails = [
     temple: 10,
   },
   {
-    name: 'MadHatter',
-    damageDealer: 'aspen',
-    quality: 'b+',
+    name: 'нотно',
+    damageDealer: 'nataly',
+    quality: 'a',
     stars: 10,
     temple: 10,
   },
   {
-    name: 'Miraika',
-    damageDealer: 'aspen',
+    name: 'Burbulak',
+    damageDealer: 'vulkan',
     quality: 'b+',
     stars: 10,
     temple: 10,
@@ -840,16 +840,16 @@ export const teamDetails = [
     temple: 10,
   },
   {
-    name: 'RusLAN',
-    damageDealer: 'aspen',
-    quality: 'b+',
+    name: 'Cherdak',
+    damageDealer: 'nataly',
+    quality: 'a',
     stars: 10,
     temple: 10,
   },
   {
-    name: 'Werebear',
-    damageDealer: 'aspen',
-    quality: 'b+',
+    name: 'hate',
+    damageDealer: 'williams',
+    quality: 'a-',
     stars: 10,
     temple: 10,
   },
@@ -861,14 +861,14 @@ export const teamDetails = [
     temple: 10,
   },
   {
-    name: 'Xenon',
+    name: 'PriZrak',
     damageDealer: 'aspen',
-    quality: 'b+',
+    quality: 'a-',
     stars: 10,
     temple: 10,
   },
   {
-    name: 'sanjok',
+    name: 'Strong_Sem',
     damageDealer: 'aspen',
     quality: 'b+',
     stars: 10,
@@ -906,12 +906,6 @@ export const teamDetails = [
 
 export const guildStatistic = [
   {
-    date: '09.25',
-    total: 0,
-    rate: 0,
-    newbies: 0,
-  },
-  {
     date: '10.25',
     total: 1070436458949270,
     rate: 100,
@@ -922,5 +916,11 @@ export const guildStatistic = [
     total: 1055022942841880,
     rate: 63,
     newbies: 3,
+  },
+  {
+    date: '01.26',
+    total: 1570841776221830,
+    rate: 0,
+    newbies: 7,
   },
 ];
