@@ -27,7 +27,7 @@ export interface GuildStatistic {
   newbies: number;
 }
 
-export type DataSource = 'ST' | 'CLS';
+export type DataSource = 'ST' | 'CLS' | 'MNL';
 
 export interface DataState {
   latestZveks: LatestZveks[];

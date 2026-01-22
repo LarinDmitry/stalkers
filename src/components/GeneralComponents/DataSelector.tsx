@@ -5,7 +5,7 @@ import {DataSource, setDataSource} from 'store/dataSlice';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-const sources: DataSource[] = ['ST', 'CLS'];
+const sources: DataSource[] = ['ST', 'CLS', 'MNL'];
 
 interface Props {
   selectedSource: string;
