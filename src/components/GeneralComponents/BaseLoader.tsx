@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   ${Point} {
     &:nth-child(1) {
       animation: bounce 1s ease-in-out infinite;

@@ -10,9 +10,9 @@ export default {
   AVERAGE_DAMAGE: '— average damage',
   AVERAGE_COUNT: 'arithmetic average',
   SMALL: '0.2−0.3: Damage is distributed fairly evenly.',
-  MEDIUM: '0.5: Moderate inequality. There are a few players with significantly larger contributions, but the others also make a noticeable impact.',
-  HARD:
-    '0.8−1.0: Severe inequality. Damage is mainly concentrated among one or a few "top" players, while the rest have almost no impact on the overall result.',
+  MEDIUM:
+    '0.5: Moderate inequality. There are a few players with significantly larger contributions, but the others also make a noticeable impact.',
+  HARD: '0.8−1.0: Severe inequality. Damage is mainly concentrated among one or a few "top" players, while the rest have almost no impact on the overall result.',
   DATE: 'Date',
   TOP: 'Top 1,2,3',
   PERCENT: '% of overall damage',

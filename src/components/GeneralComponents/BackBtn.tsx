@@ -13,7 +13,7 @@ interface Props {
   to?: string;
 }
 
-const BackBtn:FC<Props> = ({to}) => {
+const BackBtn: FC<Props> = ({to}) => {
   const navigate = useNavigate();
   const {language} = useAppSelector(selectUserConfiguration);
   const {BACK} = globalLocalization(language);

@@ -1,7 +1,7 @@
 import React, {Suspense, useEffect} from 'react';
 import {RouterProvider} from 'react-router';
 import {ThemeProvider} from 'styled-components';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {QueryClientProvider} from '@tanstack/react-query';
 import {Provider} from 'react-redux';
 import {ErrorBoundary} from 'react-error-boundary';
 import ReactGA from 'react-ga4';
@@ -18,18 +18,16 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-
-    <Provider store={reduxStore}>
-      <ThemeProvider theme={MainTheme}>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Suspense>
-            <RouterProvider router={router} />
-          </Suspense>
-        </ErrorBoundary>
-      </ThemeProvider>
-    </Provider>
+      <Provider store={reduxStore}>
+        <ThemeProvider theme={MainTheme}>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Suspense>
+              <RouterProvider router={router} />
+            </Suspense>
+          </ErrorBoundary>
+        </ThemeProvider>
+      </Provider>
     </QueryClientProvider>
-
   );
 };
 

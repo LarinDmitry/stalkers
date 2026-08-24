@@ -28,6 +28,5 @@
     },
     "types": ["vite-plugin-svgr/client"]
   },
-  "include": ["src",
-    "src/custom.d.ts", "vite.config.ts", "eslint.config.js"]
+  "include": ["src", "src/custom.d.ts", "vite.config.ts", "eslint.config.js"]
 }

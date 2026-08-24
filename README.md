@@ -3,19 +3,23 @@
 ## Getting started:
 
 ### Local version
+
     $ git clone ${repo}
     $ npm install
     $ npm start
 
 ### Prod version
+
     $ npm run build
     $ cd ~/build
 
 ### Storybook
+
     $ npm run storybook dev -p ${port}  // run
     $ npm run storybook build           // build
 
 ## Dev base knowledge:
+
 [React](https://reactjs.org/)
 
 [React Router](https://reactrouter.com/en/main/)
@@ -35,6 +39,7 @@
 ## Recommended Layout:
 
 ### Breakpoints:
+
 ```
 375 | 600 | 768 | 900 | 1024 | 1366 | 1536
 [0, 768]     // Mobile
@@ -43,15 +48,19 @@
 ```
 
 ### Component base:
+
 [Material Design](https://v3.mui.com/api/app-bar/)
 
 ### Fonts:
+
 ```
 Manrope 400|500|700
 ```
 
 ### Icons:
+
 `svg`
 
 ### Images:
+
 `webp`

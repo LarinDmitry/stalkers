@@ -19,7 +19,7 @@ export default defineConfig({
     }),
     checker({typescript: true}),
   ],
-  base: "/stalkers",
+  base: '/stalkers',
   server: {
     port: 3000,
   },
@@ -33,5 +33,5 @@ export default defineConfig({
       store: path.resolve(__dirname, 'src/store'),
       stories: path.resolve(__dirname, 'src/stories'),
     },
-  }
+  },
 });

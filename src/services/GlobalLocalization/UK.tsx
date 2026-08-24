@@ -19,4 +19,4 @@ export default {
   GROW: 'Звек рух',
   GUILD_RATING: 'Місце гільдії в рейтингу',
   NEWBIES: 'Нові гравці',
-}
+};
