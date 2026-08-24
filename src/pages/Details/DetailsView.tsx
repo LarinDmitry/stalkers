@@ -2,7 +2,10 @@ import React, {useEffect, useMemo} from 'react';
 import {useLocation, useParams} from 'react-router';
 import ReactGA from 'react-ga4';
 import styled from 'styled-components';
+import {useQuery} from '@tanstack/react-query';
+import {getAllUsersDamage} from 'api/user-damage';
 import BackBtn from 'components/GeneralComponents/BackBtn';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import LineChart from './components/LineChart';
 import BarChart from './components/BarChart';
 import {useAppSelector} from 'services/hooks';
@@ -10,19 +13,21 @@ import {selectUserConfiguration} from 'store/userSlice';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from './DetailsUtils';
 import {font_body_2_reg, font_header_6_reg} from 'theme/fonts';
-import {selectDataConfiguration} from 'store/dataSlice';
 
 const DetailsView = () => {
   const {id} = useParams<{id: string}>();
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
-  const {latestZveks} = useAppSelector(selectDataConfiguration);
+  const {data: latestZveks = [], isPending} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
 
   useEffect(() => {
     ReactGA.send({hitType: 'details', page: location.pathname});
   }, []);
 
-  const latestZvekValues = useMemo(() => latestZveks.find(({name}) => name === id)?.info || [], [id]);
+  const latestZvekValues = useMemo(() => latestZveks.find(({name}) => name === id)?.info || [], [id, latestZveks]);
 
   const averageAllZveks = useMemo(
     () => latestZvekValues.reduce((acc, {damage}) => acc + damage, 0) / 3 || 0,
@@ -48,6 +53,8 @@ const DetailsView = () => {
       date: zvekDaysOptions[idx] || date,
     }));
   }, [latestZvekValues, zvekDaysOptions]);
+
+  if (isPending) return <BaseLoader />;
 
   return (
     <Wrapper>

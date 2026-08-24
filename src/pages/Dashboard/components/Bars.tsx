@@ -1,14 +1,17 @@
 import React, {useMemo} from 'react';
 import styled from 'styled-components';
 import SvgIcon from '@mui/material/SvgIcon';
+import {useQuery} from '@tanstack/react-query';
 import {useAppSelector} from 'services/hooks';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import {selectUserConfiguration} from 'store/userSlice';
 import {useGuildData, globalLocalization} from 'services/GlobalUtils';
 import {localization} from '../DashboardUtils';
 import Increase from 'assets/icons/increase.svg';
 import Decrease from 'assets/icons/decrease.svg';
 import {font_body_2_bold, mediumWeight} from 'theme/fonts';
-import {selectDataConfiguration} from 'store/dataSlice';
+import {getGuildStatistic} from 'api/statistic';
+import {getAllUsersDamage} from 'api/user-damage';
 
 interface PlayerData {
   name: string;
@@ -19,8 +22,17 @@ interface PlayerData {
 
 const Bars = () => {
   const {language} = useAppSelector(selectUserConfiguration);
-  const {latestZveks, guildStatistic} = useAppSelector(selectDataConfiguration);
   const guildData = useGuildData();
+
+  const {data: guildStatistic = [], isPending: isStatisticLoading} = useQuery({
+    queryKey: ['guildStatistic'],
+    queryFn: getGuildStatistic,
+  });
+
+  const {data: latestZveks = [], isPending: isZveksLoading} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
 
   const playerData: PlayerData[] = useMemo(
     () =>
@@ -39,13 +51,19 @@ const Bars = () => {
           return acc;
         }, [])
         .sort((a, b) => b.percentageChange - a.percentageChange),
-    []
+    [latestZveks]
   );
 
-  const guild = guildData?.[2];
+  const lastStatIndex = guildStatistic.length - 1;
+  const currentStat = guildStatistic[lastStatIndex];
+  const previousStat = guildStatistic[lastStatIndex - 1];
+
+  const guild = guildData?.[guildData.length - 1];
   const guildChange: number | null = guild?.percentageChange ?? null;
-  const {rate: currentRate = 0, newbies = 0} = guildStatistic?.[2] || {};
-  const {rate: previousRate = 0} = guildStatistic?.[1] || {};
+
+  const currentRate = currentStat?.rate ?? 0;
+  const newbies = currentStat?.newbies ?? 0;
+  const previousRate = previousStat?.rate ?? 0;
 
   const getIcon = (isPositive: boolean | undefined | null) => {
     if (isPositive === undefined || isPositive === null) return null;
@@ -54,6 +72,10 @@ const Bars = () => {
 
   const {BEST} = localization(language);
   const {NO_DATA, GROW, GUILD_RATING, NEWBIES} = globalLocalization(language);
+
+  if (isStatisticLoading || isZveksLoading) {
+    return <BaseLoader />;
+  }
 
   const formattedChange =
     guildChange === null ? NO_DATA : `${guildChange > 0 ? '+' : '-'}${Math.abs(guildChange).toFixed(2)}%`;

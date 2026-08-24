@@ -11,7 +11,7 @@ import {PlugCellStyles} from 'services/GlobalStyled';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {globalLocalization} from 'services/GlobalUtils';
-import {zeroDamagePlayers, localization} from '../StatisticUtils';
+import {useZeroDamagePlayers, localization} from '../StatisticUtils';
 import {boldWeight} from 'theme/fonts';
 
 export interface ZeroDamagePlayer {
@@ -28,7 +28,7 @@ const ZeroDamagePlayers = () => {
 
   return (
     <Container component={Paper}>
-      {!zeroDamagePlayers().length ? (
+      {!useZeroDamagePlayers().length ? (
         <Plug>{ALL_PLAYERS_HAVE_DAMAGED}</Plug>
       ) : (
         <Table>
@@ -40,7 +40,7 @@ const ZeroDamagePlayers = () => {
             </Row>
           </TableHead>
           <TableBody>
-            {zeroDamagePlayers().map(({name, zeroDays}) => (
+            {useZeroDamagePlayers().map(({name, zeroDays}) => (
               <Row key={name}>
                 <TableCell align="center">{name}</TableCell>
                 <TableCell align="center">

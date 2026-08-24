@@ -8,21 +8,28 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import SvgIcon from '@mui/material/SvgIcon';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
-import {calculateTopPlayersData} from 'services/GlobalUtils';
+import {useTopPlayersData} from 'services/GlobalUtils';
 import {localization} from '../DashboardUtils';
 import {BlockStyles} from 'pages/Dashboard/DashboardStyled';
 import ArrowLink from 'assets/icons/arrow_link.svg';
 import {font_body_1_bold} from 'theme/fonts';
-import {selectDataConfiguration} from 'store/dataSlice';
+import {useQuery} from '@tanstack/react-query';
+import {getAllUsersDamage} from 'api/user-damage';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const Tops = () => {
   const navigate = useNavigate();
   const {language} = useAppSelector(selectUserConfiguration);
-  const {latestZveks} = useAppSelector(selectDataConfiguration);
+  const {data: latestZveks = [], isPending} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
+
+  const topDataList = useTopPlayersData(5);
 
   const {NAME, TOTAL, DAMAGE, IMPACT, TOP_PLAYERS, OTHERS} = localization(language);
 
@@ -33,17 +40,22 @@ const Tops = () => {
         damage: info[info.length - 1].damage,
         guildTotal: info[info.length - 1].guildTotal,
       })),
-    []
+    [latestZveks]
   );
 
-  const total = calculateTopPlayersData(5)[2].guildTotal;
-  const top5Percentage = calculateTopPlayersData(5)[2].topDamagePercentage;
+  const currentTopData = topDataList[topDataList.length - 1] ?? {
+    guildTotal: 0,
+    topDamagePercentage: 0,
+    topPlayers: [],
+  };
+
+  const {guildTotal: total, topDamagePercentage: top5Percentage, topPlayers} = currentTopData;
 
   const data = {
     labels: [TOP_PLAYERS, OTHERS],
     datasets: [
       {
-        data: [top5Percentage * total, (100 - top5Percentage) * total],
+        data: [(top5Percentage / 100) * total, (1 - top5Percentage / 100) * total],
         backgroundColor: ['rgba(72, 99, 235, 0.7)', 'rgba(68, 217, 38, 0.7)'],
         hoverOffset: 4,
       },
@@ -51,6 +63,8 @@ const Tops = () => {
   };
 
   const headerValues = [NAME, DAMAGE, IMPACT, ''];
+
+  if (isPending) return <BaseLoader />;
 
   return (
     <Wrapper>
@@ -67,7 +81,7 @@ const Tops = () => {
           />
         </DoughnutWrapper>
         <Text>
-          {TOTAL}: {(calculateTopPlayersData(5)[2].guildTotal / 1e12).toFixed(2)} T
+          {TOTAL}: {(useTopPlayersData(5)[2].guildTotal / 1e12).toFixed(2)} T
         </Text>
         <Icon onClick={() => navigate('/main')}>
           <ArrowLink />
@@ -84,7 +98,7 @@ const Tops = () => {
             ))}
           </TableRow>
           <TableBody>
-            {calculateTopPlayersData(5)[2].topPlayers.map((name, idx) => {
+            {topPlayers.map((name, idx) => {
               const player = tableData.find((p) => p.name === name) || {damage: 0, guildTotal: 1};
               const arrValues = [
                 name,
@@ -95,8 +109,8 @@ const Tops = () => {
 
               return (
                 <Row key={idx} onClick={() => navigate(`/details/${name}`)}>
-                  {arrValues.map((item, idx) => (
-                    <TableCell key={idx} align="center">
+                  {arrValues.map((item, cellIdx) => (
+                    <TableCell key={cellIdx} align="center">
                       {item}
                     </TableCell>
                   ))}

@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {localization} from '../StatisticUtils';
-import {calculateTopPlayersData} from 'services/GlobalUtils';
+import {useTopPlayersData} from 'services/GlobalUtils';
 
 const TopPlayers = () => {
   const {language} = useAppSelector(selectUserConfiguration);
@@ -31,7 +31,7 @@ const TopPlayers = () => {
           </Row>
         </TableHead>
         <TableBody>
-          {calculateTopPlayersData(3).map(({date, topPlayers, topDamagePercentage}, idx) => (
+          {useTopPlayersData(3).map(({date, topPlayers, topDamagePercentage}, idx) => (
             <Row key={idx}>
               <TableCell align="center">{date}</TableCell>
               <TableCell align="center">{topPlayers.join(', ')}</TableCell>

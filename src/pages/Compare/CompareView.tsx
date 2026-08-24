@@ -6,12 +6,14 @@ import {Bar} from 'react-chartjs-2';
 import {Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import BackBtn from 'components/GeneralComponents/BackBtn';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {backgroundColor, hoverBackgroundColor} from 'pages/Main/MainUtils';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from './CompareUtils';
-import {selectDataConfiguration} from 'store/dataSlice';
+import {useQuery} from '@tanstack/react-query';
+import {getAllUsersDamage} from 'api/user-damage';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
@@ -19,7 +21,11 @@ const CompareView = () => {
   const {id} = useParams<{id: string}>();
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
-  const {latestZveks} = useAppSelector(selectDataConfiguration);
+
+  const {data: latestZveks = [], isPending} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
 
   useEffect(() => {
     ReactGA.send({hitType: 'compare', page: location.pathname});
@@ -54,7 +60,7 @@ const CompareView = () => {
         maxValues: maxValuesByDate,
       })),
     };
-  }, [id]) as any;
+  }, [id, latestZveks]) as any;
 
   const getOptions = useCallback(
     (text: string, maxValuesByDate?: number[]) => ({
@@ -140,7 +146,7 @@ const CompareView = () => {
         })),
       };
     },
-    [id, zvekDaysOptions]
+    [id, latestZveks, zvekDaysOptions]
   );
 
   const dataLastEventByDays = useMemo(
@@ -155,9 +161,11 @@ const CompareView = () => {
     );
   }, [dataLastEventByDays]);
 
+  if (isPending) return <BaseLoader />;
+
   return (
     <Wrapper>
-      <BackBtn to='/main' />
+      <BackBtn to="/main" />
       <Charts>
         <div>
           <Bar

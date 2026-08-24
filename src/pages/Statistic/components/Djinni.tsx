@@ -7,16 +7,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {calculateGini} from '../StatisticUtils';
 import {localization} from '../StatisticUtils';
 import {boldWeight} from 'theme/fonts';
-import {selectDataConfiguration} from 'store/dataSlice';
+import {useQuery} from '@tanstack/react-query';
+import {getAllUsersDamage} from 'api/user-damage';
 
 const Djinni = () => {
   const {language} = useAppSelector(selectUserConfiguration);
-  const {latestZveks} = useAppSelector(selectDataConfiguration);
+  const {data: latestZveks = [], isPending} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
 
   const uniqueDates = useMemo(
     () =>
@@ -36,8 +41,9 @@ const Djinni = () => {
   );
 
   const {DATE, JINNI} = localization(language);
-
   const headerValues = [DATE, JINNI];
+
+  if (isPending) return <BaseLoader />;
 
   return (
     <Container component={Paper}>

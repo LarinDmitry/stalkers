@@ -7,13 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {useQuery} from '@tanstack/react-query';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
+import {getAllUsersDamage} from 'api/user-damage';
 import {PlugCellStyles} from 'services/GlobalStyled';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from '../StatisticUtils';
 import {boldWeight} from 'theme/fonts';
-import {selectDataConfiguration} from 'store/dataSlice';
 
 interface PlayerData {
   name: string;
@@ -24,7 +26,10 @@ interface PlayerData {
 
 const DamageDecrease = () => {
   const {language} = useAppSelector(selectUserConfiguration);
-  const {latestZveks} = useAppSelector(selectDataConfiguration);
+  const {data: latestZveks = [], isPending} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
   const {LAST_ZVEK, DECREASE} = localization(language);
   const {NICKNAME, LATEST_ZVEK} = globalLocalization(language);
 
@@ -44,13 +49,15 @@ const DamageDecrease = () => {
 
         return acc;
       }, []),
-    []
+    [latestZveks]
   );
 
   const headerValues = useMemo(
     () => [NICKNAME, LAST_ZVEK, LATEST_ZVEK, DECREASE],
     [NICKNAME, LAST_ZVEK, LATEST_ZVEK, DECREASE]
   );
+
+  if (isPending) return <BaseLoader />;
 
   return (
     <Container component={Paper}>

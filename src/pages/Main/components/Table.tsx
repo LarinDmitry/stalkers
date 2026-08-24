@@ -1,17 +1,19 @@
 import React, {useCallback, useMemo, useState, FC} from 'react';
 import styled from 'styled-components';
+import {useQuery} from '@tanstack/react-query';
+import {getUsersDetails} from 'api/users';
 import TableRow from './TableRow';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import Checkbox from '@mui/material/Checkbox';
 import SvgIcon from '@mui/material/SvgIcon';
 import {useAppDispatch, useAppSelector} from 'services/hooks';
-import useQuery from 'services/useQuery';
+import useQueryHooks from 'services/useQuery';
 import {selectUserConfiguration, setSortConfig, selectAllItems, clearSelection} from 'store/userSlice';
 import {heroImages, qualityImages, localization} from 'pages/Main/MainUtils';
 import {globalLocalization} from 'services/GlobalUtils';
 import Gey from 'assets/images/gey.png';
 import Arrow from 'assets/icons/arrow.svg';
 import {font_body_4_bold} from 'theme/fonts';
-import {selectDataConfiguration} from 'store/dataSlice';
 
 interface Props {
   total: number;
@@ -23,9 +25,13 @@ interface Props {
 
 const Table: FC<Props> = ({data, total}) => {
   const dispatch = useAppDispatch();
-  const [, , isLaptop] = useQuery();
+  const [, , isLaptop] = useQueryHooks();
   const {sortConfig, selectedItems, language} = useAppSelector(selectUserConfiguration);
-  const {teamDetails} = useAppSelector(selectDataConfiguration);
+
+  const {data: teamDetails = [], isPending} = useQuery({
+    queryKey: ['teamDetails'],
+    queryFn: getUsersDetails,
+  });
 
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
@@ -42,7 +48,7 @@ const Table: FC<Props> = ({data, total}) => {
         },
         {} as Record<string, {quality?: string; stars?: number; temple?: number; damageDealer?: string}>
       ),
-    []
+    [teamDetails]
   );
 
   const sortedData = useMemo(() => {
@@ -81,7 +87,7 @@ const Table: FC<Props> = ({data, total}) => {
       if (aValue > bValue) return direction === 'asc' ? 1 : -1;
       return 0;
     });
-  }, [data, sortConfig, total, teamDetailsMap]);
+  }, [data, sortConfig, total, teamDetails, teamDetailsMap]);
 
   const toggleSelectAll = useCallback(
     (checked: boolean) =>
@@ -141,6 +147,8 @@ const Table: FC<Props> = ({data, total}) => {
         <Arrow />
       </Icon>
     ) : null;
+
+  if (isPending) return <BaseLoader />;
 
   return (
     <Wrapper>

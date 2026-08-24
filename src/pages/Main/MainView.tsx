@@ -2,27 +2,32 @@ import React, {useEffect, useMemo} from 'react';
 import {useLocation, useNavigate} from 'react-router';
 import ReactGA from 'react-ga4';
 import styled from 'styled-components';
+import {useQuery} from '@tanstack/react-query';
+import {getAllUsersDamage} from 'api/user-damage';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
+import BackBtn from 'components/GeneralComponents/BackBtn';
 import Table from './components/Table';
 import PieChart from './components/PieChart';
 import Button from '@mui/material/Button';
 import SvgIcon from '@mui/material/SvgIcon';
 import Tooltip from '@mui/material/Tooltip';
 import {useAppSelector} from 'services/hooks';
-import useQuery from 'services/useQuery';
+import useQueryHooks from 'services/useQuery';
 import {selectUserConfiguration} from 'store/userSlice';
 import {globalLocalization} from 'services/GlobalUtils';
 import {localization} from './MainUtils';
 import Compare from 'assets/icons/compare.svg';
 import {font_header_5_bold, font_body_2_reg} from 'theme/fonts';
-import BackBtn from 'components/GeneralComponents/BackBtn';
-import {selectDataConfiguration} from 'store/dataSlice';
 
 const MainView = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMobile, ,] = useQuery();
+  const [isMobile, ,] = useQueryHooks();
   const {language, selectedItems} = useAppSelector(selectUserConfiguration);
-  const {latestZveks} = useAppSelector(selectDataConfiguration);
+  const {data: latestZveks = [], isPending} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
 
   const {guildTotal, date} = latestZveks[0].info[latestZveks[0].info.length - 1];
 
@@ -36,7 +41,7 @@ const MainView = () => {
         name,
         damage: info[info.length - 1].damage,
       })),
-    []
+    [latestZveks]
   );
 
   const tableData = useMemo(
@@ -45,11 +50,13 @@ const MainView = () => {
         name,
         damage: info[info.length - 1].damage,
       })),
-    []
+    [latestZveks]
   );
 
   const {MIN, COMPARE} = localization(language);
   const {LAST} = globalLocalization(language);
+
+  if (isPending) return <BaseLoader />;
 
   return (
     <Wrapper>

@@ -1,5 +1,6 @@
 import React, {useCallback, useMemo} from 'react';
 import styled from 'styled-components';
+import {useQuery} from '@tanstack/react-query';
 import {Line} from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -14,7 +15,8 @@ import {
 } from 'chart.js';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
-import {selectDataConfiguration} from 'store/dataSlice';
+import {getGuildStatistic} from 'api/statistic';
+import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import {localization} from '../DashboardUtils';
 import {BlockStyles} from 'pages/Dashboard/DashboardStyled';
 
@@ -24,11 +26,19 @@ type StatKey = 'total' | 'rate' | 'newbies';
 
 const Charts = () => {
   const {language} = useAppSelector(selectUserConfiguration);
-  const {guildStatistic} = useAppSelector(selectDataConfiguration);
+
+  const {
+    data: guildStatistic = [],
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ['guildStatistic'],
+    queryFn: getGuildStatistic,
+  });
 
   const extractedData = useMemo(
     () =>
-      guildStatistic.reduce<{labels: string[], total: number[], rate: number[], newbies: number[]}>(
+      guildStatistic.reduce<{labels: string[]; total: number[]; rate: number[]; newbies: number[]}>(
         (acc, {date, total, rate, newbies}) => {
           acc.labels.push(date);
           acc.total.push(total);
@@ -38,7 +48,7 @@ const Charts = () => {
         },
         {labels: [], total: [], rate: [], newbies: []}
       ),
-    []
+    [guildStatistic]
   );
 
   const createGradient = useCallback((ctx: CanvasRenderingContext2D | null, color: string) => {
@@ -109,20 +119,26 @@ const Charts = () => {
     {key: 'newbies', color: 'rgba(235, 72, 99, 0.7)', title: NEW},
   ];
 
+  if (isError) return <Wrapper>Failed to load guild statistics.</Wrapper>;
+
   return (
     <Wrapper>
-      {chartsConfig.map(({key, color, title}) => (
-        <Chart key={key}>
-          <Line
-            data={createChartData(
-              (document.createElement('canvas') as HTMLCanvasElement).getContext('2d'),
-              extractedData[key] as number[],
-              color
-            )}
-            options={createOptions(title)}
-          />
-        </Chart>
-      ))}
+      {chartsConfig.map(({key, color, title}) =>
+        isPending ? (
+          <BaseLoader key={key} />
+        ) : (
+          <Chart key={key}>
+            <Line
+              data={createChartData(
+                (document.createElement('canvas') as HTMLCanvasElement).getContext('2d'),
+                extractedData[key] as number[],
+                color
+              )}
+              options={createOptions(title)}
+            />
+          </Chart>
+        )
+      )}
     </Wrapper>
   );
 };

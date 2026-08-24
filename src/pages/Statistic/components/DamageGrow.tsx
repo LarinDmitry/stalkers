@@ -8,16 +8,24 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useAppSelector} from 'services/hooks';
+import {useQuery} from '@tanstack/react-query';
 import {selectUserConfiguration} from 'store/userSlice';
 import {localization} from '../StatisticUtils';
 import {globalLocalization} from 'services/GlobalUtils';
 import {useGuildData} from 'services/GlobalUtils';
 import {boldWeight} from 'theme/fonts';
-import {selectDataConfiguration} from 'store/dataSlice';
+import {getGuildStatistic} from 'api/statistic';
 
 const DamageGrow = () => {
   const {language} = useAppSelector(selectUserConfiguration);
-  const {guildStatistic} = useAppSelector(selectDataConfiguration);
+
+  const {data: guildStatistic = [], isPending} = useQuery({
+    queryKey: ['guildStatistic'],
+    queryFn: getGuildStatistic,
+  });
+
+  const guildData = useGuildData();
+
   const {DATE, DAMAGE_GUILD, CHANGES} = localization(language);
   const {NO_DATA, GUILD_RATING, NEWBIES} = globalLocalization(language);
   const headerValues = [DATE, DAMAGE_GUILD, CHANGES, GUILD_RATING, NEWBIES];
@@ -33,7 +41,7 @@ const DamageGrow = () => {
           </Row>
         </TableHead>
         <TableBody>
-          {useGuildData().map(({total, percentageChange, date}, idx) => {
+          {guildData.map(({total, percentageChange, date}, idx) => {
             const changeText =
               idx > 0
                 ? percentageChange === null

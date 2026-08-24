@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import RU from 'assets/icons/language_ru.svg';
+import {useQuery} from '@tanstack/react-query';
+import {getGuildStatistic} from 'api/statistic';
+import {getAllUsersDamage} from 'api/user-damage';
 import en from './GlobalLocalization/EN';
 import uk from './GlobalLocalization/UK';
 import ru from './GlobalLocalization/RU';
 import SvgIcon from '@mui/material/SvgIcon';
 import UK from 'assets/icons/language_uk.svg';
 import EN from 'assets/icons/language_en.svg';
-import RU from 'assets/icons/language_ru.svg';
-import {useAppSelector} from 'services/hooks';
-import {selectDataConfiguration} from 'store/dataSlice';
 
 export interface LocalizationObjProps {
   [key: string]: {
@@ -23,19 +24,18 @@ export interface TopPlayerData {
   guildTotal: number;
 }
 
-export interface GuildData {
-  guildTotal: number;
-  percentageChange: number | null;
-  date: string;
-}
-
 export const stateReducer = (state: any, action: any) => ({...state, ...action});
 
 const localizationObj = {en, uk, ru} as LocalizationObjProps;
 export const globalLocalization = (language: string) => localizationObj[language];
 
-export const calculateTopPlayersData = (topN: number): TopPlayerData[] => {
-  const {latestZveks} = useAppSelector(selectDataConfiguration);
+export const useTopPlayersData = (topN: number): TopPlayerData[] => {
+  const {data: latestZveks = []} = useQuery({
+    queryKey: ['allUsersDamage'],
+    queryFn: getAllUsersDamage,
+  });
+
+  if (!latestZveks.length || !latestZveks[0]?.info) return [];
 
   return latestZveks[0].info
     .map(({date, guildTotal}, index) => {
@@ -48,6 +48,7 @@ export const calculateTopPlayersData = (topN: number): TopPlayerData[] => {
         }))
         .sort((a, b) => b.damage - a.damage)
         .slice(0, topN);
+
       const topDamageSum = topPlayers.reduce((sum, {damage}) => sum + damage, 0);
       const topDamagePercentage = (topDamageSum / guildTotal) * 100;
 
@@ -58,11 +59,14 @@ export const calculateTopPlayersData = (topN: number): TopPlayerData[] => {
         guildTotal,
       };
     })
-    .filter((item) => item !== null);
+    .filter((item): item is TopPlayerData => item !== null);
 };
 
 export const useGuildData = () => {
-  const {guildStatistic} = useAppSelector(selectDataConfiguration);
+  const {data: guildStatistic = []} = useQuery({
+    queryKey: ['guildStatistic'],
+    queryFn: getGuildStatistic,
+  });
 
   return guildStatistic.map(({total, rate, date}, index, arr) => {
     const previous = arr[index - 1]?.total || 0;
