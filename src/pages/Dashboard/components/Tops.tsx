@@ -37,8 +37,8 @@ const Tops = () => {
     () =>
       latestZveks.map(({name, info}) => ({
         name,
-        damage: info[info.length - 1].damage,
-        guildTotal: info[info.length - 1].guildTotal,
+        damage: info[info.length - 1]?.damage ?? 0,
+        guildTotal: info[info.length - 1]?.guildTotal ?? 1,
       })),
     [latestZveks]
   );
@@ -51,16 +51,19 @@ const Tops = () => {
 
   const {guildTotal: total, topDamagePercentage: top5Percentage, topPlayers} = currentTopData;
 
-  const data = {
-    labels: [TOP_PLAYERS, OTHERS],
-    datasets: [
-      {
-        data: [(top5Percentage / 100) * total, (1 - top5Percentage / 100) * total],
-        backgroundColor: ['rgba(72, 99, 235, 0.7)', 'rgba(68, 217, 38, 0.7)'],
-        hoverOffset: 4,
-      },
-    ],
-  };
+  const data = useMemo(
+    () => ({
+      labels: [TOP_PLAYERS, OTHERS],
+      datasets: [
+        {
+          data: [(top5Percentage / 100) * total, (1 - top5Percentage / 100) * total],
+          backgroundColor: ['rgba(72, 99, 235, 0.7)', 'rgba(68, 217, 38, 0.7)'],
+          hoverOffset: 4,
+        },
+      ],
+    }),
+    [TOP_PLAYERS, OTHERS, top5Percentage, total]
+  );
 
   const headerValues = [NAME, DAMAGE, IMPACT, ''];
 
@@ -81,7 +84,7 @@ const Tops = () => {
           />
         </DoughnutWrapper>
         <Text>
-          {TOTAL}: {(useTopPlayersData(5)[2].guildTotal / 1e12).toFixed(2)} T
+          {TOTAL}: {(total / 1e12).toFixed(2)} T
         </Text>
         <Icon onClick={() => navigate('/main')}>
           <ArrowLink />
