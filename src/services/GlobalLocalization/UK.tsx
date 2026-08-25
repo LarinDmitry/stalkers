@@ -19,4 +19,11 @@ export default {
   GROW: 'Звек рух',
   GUILD_RATING: 'Місце гільдії в рейтингу',
   NEWBIES: 'Нові гравці',
+  ADMIN_TITLE: 'Панель управління ЗВЕК',
+  ADMIN_ENTER: 'Вхід до Адмінки',
+  ERROR_DATA: 'Неправильний логін або пароль',
+  LOGIN: 'Логін',
+  PASSWORD: 'Пароль',
+  ENTER: 'Увійти',
+  LOGOUT: 'Вийти',
 };

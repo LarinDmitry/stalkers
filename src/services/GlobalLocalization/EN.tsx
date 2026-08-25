@@ -19,4 +19,11 @@ export default {
   GROW: 'SE change',
   GUILD_RATING: 'Guild rating',
   NEWBIES: 'Newbies',
+  ADMIN_TITLE: 'SE control panel',
+  ADMIN_ENTER: 'Login to Admin Panel',
+  ERROR_DATA: 'Incorrect login or password',
+  LOGIN: 'Login',
+  PASSWORD: 'Password',
+  ENTER: 'Login',
+  LOGOUT: 'Logout',
 };

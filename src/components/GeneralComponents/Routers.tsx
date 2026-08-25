@@ -2,6 +2,7 @@ import React, {Fragment, lazy} from 'react';
 import {Route, createRoutesFromChildren, createBrowserRouter} from 'react-router';
 import PageLayout from './PageLayout';
 import DashboardLayout from './DashboardLayout';
+import AdminLayout from './AdminLayout';
 
 const Dashboard = lazy(() => import('pages/Dashboard/DashboardView'));
 const Welcome = lazy(() => import('pages/Welcome/WelcomeView'));
@@ -13,6 +14,10 @@ const Contacts = lazy(() => import('pages/Contacts/ContactsView'));
 const BossHP = lazy(() => import('pages/BossHP/BossHPView'));
 const NotFound = lazy(() => import('pages/NotFound/NotFoundView'));
 
+// Admin routes
+const Login = lazy(() => import('pages/AdminLogin/LoginView'));
+const AdminFlow = lazy(() => import('pages/AdminFlow/FlowView'));
+
 const Routers = () => (
   <Fragment>
     <Route element={<PageLayout />}>
@@ -23,9 +28,13 @@ const Routers = () => (
       <Route path="/statistic" element={<Statistic />} />
       <Route path="/contacts" element={<Contacts />} />
       <Route path="/bossHP" element={<BossHP />} />
+      <Route path="/admin/login" element={<Login />} />
     </Route>
     <Route element={<DashboardLayout />}>
       <Route path="/dashboard" element={<Dashboard />} />
+    </Route>
+    <Route element={<AdminLayout />}>
+      <Route path="/admin" element={<AdminFlow />} />
     </Route>
     <Route path="*" element={<NotFound />} />
   </Fragment>
