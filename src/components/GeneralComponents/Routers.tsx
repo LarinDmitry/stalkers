@@ -1,5 +1,5 @@
 import React, {Fragment, lazy} from 'react';
-import {Route, createRoutesFromChildren, createBrowserRouter} from 'react-router';
+import {Route, createRoutesFromChildren, createBrowserRouter, Navigate} from 'react-router';
 import PageLayout from './PageLayout';
 import DashboardLayout from './DashboardLayout';
 import AdminLayout from './AdminLayout';
@@ -16,7 +16,8 @@ const NotFound = lazy(() => import('pages/NotFound/NotFoundView'));
 
 // Admin routes
 const Login = lazy(() => import('pages/AdminLogin/LoginView'));
-const AdminFlow = lazy(() => import('pages/AdminFlow/FlowView'));
+const AdminUsers = lazy(() => import('pages/AdminUsers/UsersView'));
+const AdminZvek = lazy(() => import('pages/AdminZvek/ZvekView'));
 
 const Routers = () => (
   <Fragment>
@@ -34,7 +35,9 @@ const Routers = () => (
       <Route path="/dashboard" element={<Dashboard />} />
     </Route>
     <Route element={<AdminLayout />}>
-      <Route path="/admin" element={<AdminFlow />} />
+      <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
+      <Route path="/admin/users" element={<AdminUsers />} />
+      <Route path="/admin/zvek" element={<AdminZvek />} />
     </Route>
     <Route path="*" element={<NotFound />} />
   </Fragment>
