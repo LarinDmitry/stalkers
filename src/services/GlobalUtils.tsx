@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 import RU from 'assets/icons/language_ru.svg';
 import {useQuery} from '@tanstack/react-query';
 import {getGuildStatistic} from 'api/statistic';
@@ -10,6 +11,20 @@ import ru from './GlobalLocalization/RU';
 import SvgIcon from '@mui/material/SvgIcon';
 import UK from 'assets/icons/language_uk.svg';
 import EN from 'assets/icons/language_en.svg';
+import X from 'assets/images/quality/x.png';
+import B from 'assets/images/quality/b+.png';
+import A_Low from 'assets/images/quality/a-.png';
+import A from 'assets/images/quality/a.png';
+import A_High from 'assets/images/quality/a+.png';
+import S from 'assets/images/quality/s.png';
+import SS from 'assets/images/quality/ss.png';
+import SSS from 'assets/images/quality/sss.png';
+import Aspen from 'assets/images/heroes/aspen.png';
+import Vulkan from 'assets/images/heroes/vulkan.png';
+import Mokman from 'assets/images/heroes/mokman.png';
+import Vesa from 'assets/images/heroes/vesa.png';
+import Nataly from 'assets/images/heroes/nataly.png';
+import Williams from 'assets/images/heroes/williams.png';
 
 export interface LocalizationObjProps {
   [key: string]: {
@@ -113,9 +128,7 @@ export const languageOptions = [
   },
 ];
 
-const ADMIN_USERS = [
-  {login: 'admin', password: '123456'},
-];
+const ADMIN_USERS = [{login: 'admin', password: '123456'}];
 
 export const checkAuth = (): boolean => localStorage.getItem('isAuth') === 'true';
 
@@ -132,3 +145,34 @@ export const logoutAdmin = (): void => {
   localStorage.removeItem('isAuth');
   window.location.href = '/stalkers/admin/login';
 };
+
+export const qualityImages: {[key: string]: string} = {
+  '': X,
+  'b+': B,
+  'a-': A_Low,
+  a: A,
+  'a+': A_High,
+  s: S,
+  ss: SS,
+  sss: SSS,
+};
+
+export const heroImages: {[key: string]: string} = {
+  aspen: Aspen,
+  mokman: Mokman,
+  nataly: Nataly,
+  vesa: Vesa,
+  vulkan: Vulkan,
+  williams: Williams,
+};
+
+export const getImageComponent = (type: string, images: Record<string, string>, fallback = X) => (
+  <StyledImage src={images[type] || fallback} alt={type} />
+);
+
+const StyledImage = styled.img`
+  height: 3rem;
+  width: 3rem;
+`;
+
+export const getFormattedDate = (date: string | undefined) => (date ? dayjs(date).format('DD.MM.YYYY') : '-');

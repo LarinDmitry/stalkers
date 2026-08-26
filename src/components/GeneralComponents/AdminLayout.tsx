@@ -179,7 +179,7 @@ const Sidebar = styled.div<{iscollapsed: number}>`
 const Btn = styled(Button)`
   &.MuiButtonBase-root {
     text-transform: inherit;
-    background: ${({theme}) => theme.colors.red100};
+    background: ${({theme}) => theme.colors.red090};
     color: ${({theme}) => theme.colors.gray000};
     margin: 1rem;
   }

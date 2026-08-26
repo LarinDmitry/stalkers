@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import styled from 'styled-components';
 import {useNavigate} from 'react-router';
 import Checkbox from '@mui/material/Checkbox';
@@ -7,13 +7,12 @@ import useQuery from 'services/useQuery';
 import {useAppDispatch, useAppSelector} from 'services/hooks';
 import {toggleItemSelection} from 'store/userSlice';
 import {selectUserConfiguration} from 'store/userSlice';
-import {globalLocalization} from 'services/GlobalUtils';
-import {localization, heroImages, qualityImages} from 'pages/Main/MainUtils';
+import {getImageComponent, globalLocalization, heroImages, qualityImages} from 'services/GlobalUtils';
+import {localization} from 'pages/Main/MainUtils';
 import Gey from 'assets/images/gey.png';
 import Arrow from 'assets/icons/arrow.svg';
 import Up from 'assets/icons/grow_up.svg';
 import Down from 'assets/icons/grow_down.svg';
-import X from 'assets/images/quality/x.png';
 
 const TableRow = ({
   idx,
@@ -30,12 +29,7 @@ const TableRow = ({
   const [, , isLaptop] = useQuery();
   const {language} = useAppSelector(selectUserConfiguration);
 
-  const getImageComponent = useCallback(
-    (type: string, images: Record<string, string>, fallback = X) => (
-      <StyledImage src={images[type] || fallback} alt={type} />
-    ),
-    []
-  );
+
 
   const rowData = useMemo(() => {
     const commonCells = [
@@ -91,8 +85,8 @@ const TableRow = ({
     toggleRowExpansion,
   ]);
 
-  const {TEMPLE, IMPACT} = localization(language);
-  const {DAMAGE, BILLION} = globalLocalization(language);
+  const {IMPACT} = localization(language);
+  const {DAMAGE, TEMPLE, BILLION} = globalLocalization(language);
 
   const expandValues = useMemo(
     () => [
@@ -229,11 +223,6 @@ const Row = styled.div`
   @media ${({theme}) => theme.breakpoints.maxLtg} {
     grid-template-columns: 4rem 2.3rem auto 4rem 3rem 3rem;
   }
-`;
-
-const StyledImage = styled.img`
-  height: 3rem;
-  width: 3rem;
 `;
 
 export default TableRow;

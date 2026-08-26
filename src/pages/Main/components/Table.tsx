@@ -9,8 +9,8 @@ import SvgIcon from '@mui/material/SvgIcon';
 import {useAppDispatch, useAppSelector} from 'services/hooks';
 import useQueryHooks from 'services/useQuery';
 import {selectUserConfiguration, setSortConfig, selectAllItems, clearSelection} from 'store/userSlice';
-import {heroImages, qualityImages, localization} from 'pages/Main/MainUtils';
-import {globalLocalization} from 'services/GlobalUtils';
+import {localization} from 'pages/Main/MainUtils';
+import {globalLocalization, heroImages, qualityImages} from 'services/GlobalUtils';
 import Gey from 'assets/images/gey.png';
 import Arrow from 'assets/icons/arrow.svg';
 import {font_body_4_bold} from 'theme/fonts';
@@ -30,7 +30,7 @@ const Table: FC<Props> = ({data, total}) => {
 
   const {data: teamDetails = [], isPending} = useQuery({
     queryKey: ['teamDetails'],
-    queryFn: getUsersDetails,
+    queryFn: () => getUsersDetails(true),
   });
 
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
@@ -95,8 +95,8 @@ const Table: FC<Props> = ({data, total}) => {
     [dispatch, sortedData]
   );
 
-  const {QUALITY, TEMPLE, HERO, DAMAGE_TITLE, IMPACT, MORE} = localization(language);
-  const {NICKNAME} = globalLocalization(language);
+  const {DAMAGE_TITLE, IMPACT, MORE} = localization(language);
+  const {NICKNAME, QUALITY, TEMPLE, HERO} = globalLocalization(language);
 
   const headerArr = useMemo(
     () => [

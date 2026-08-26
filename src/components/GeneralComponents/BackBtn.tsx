@@ -11,15 +11,17 @@ import {font_body_4_reg} from 'theme/fonts';
 
 interface Props {
   to?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
-const BackBtn: FC<Props> = ({to}) => {
+const BackBtn: FC<Props> = ({to, onClick, disabled}) => {
   const navigate = useNavigate();
   const {language} = useAppSelector(selectUserConfiguration);
   const {BACK} = globalLocalization(language);
 
   return (
-    <Wrapper onClick={() => navigate(to || '/dashboard')}>
+    <Wrapper onClick={() => (onClick ? onClick() : to ? navigate(to) : navigate(-1))} disabled={disabled}>
       <Icon>
         <Arrow />
       </Icon>
@@ -39,6 +41,11 @@ const Wrapper = styled(Button)`
 
     &:hover {
       background: ${({theme}) => theme.colors.blue100};
+    }
+
+    &.Mui-disabled {
+      color: rgba(255, 255, 255, 0.6);
+      background: ${({theme}) => theme.colors.gray080};
     }
   }
 `;
