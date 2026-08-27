@@ -1,1 +1,0 @@
-import{r as n,ao as s,ap as o}from"./index-KGjhJR-m.js";function r(e){return Object.keys(e).length===0}function u(e=null){const t=n.useContext(s);return!t||r(t)?e:t}const a=o();function m(e=a){return u(e)}export{m as a,u};
