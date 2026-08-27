@@ -1,0 +1,1 @@
+import{j as e,c as t}from"./index-D6oudnEo.js";const r=()=>e.jsx(i,{children:"Zvek"}),i=t.div.withConfig({displayName:"ZvekView__Wrapper",componentId:"sc-eqd8z2-0"})(["display:flex;align-items:center;justify-content:center;height:100vh;"]);export{r as default};
