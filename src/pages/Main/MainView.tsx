@@ -62,7 +62,7 @@ const MainView = () => {
     <Wrapper>
       <Header>
         <Title>
-          <BackBtn />
+          <BackBtn to="/dashboard" />
           {LAST} - {date}
         </Title>
         <Tooltip title={MIN} disableHoverListener={selectedItems.length >= 2}>
