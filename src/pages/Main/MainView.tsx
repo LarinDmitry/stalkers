@@ -29,11 +29,11 @@ const MainView = () => {
     queryFn: getAllUsersDamage,
   });
 
-  const {guildTotal, date} = latestZveks[0].info[latestZveks[0].info.length - 1];
+  const {guildTotal, date} = latestZveks[0]?.info[latestZveks[0]?.info.length - 1] || {};
 
   useEffect(() => {
     ReactGA.send({hitType: 'main', page: location.pathname});
-  }, []);
+  }, [location.pathname]);
 
   const pieChartData = useMemo(
     () =>

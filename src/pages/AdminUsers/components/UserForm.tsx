@@ -1,4 +1,4 @@
-import React, {useState, FormEvent} from 'react';
+import React, {useState, FormEvent, FC} from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -21,7 +21,7 @@ interface UserFormProps {
   onCancel: () => void;
 }
 
-const UserForm: React.FC<UserFormProps> = ({initialValues, isLoading, onSubmit, onCancel}) => {
+const UserForm: FC<UserFormProps> = ({initialValues, isLoading, onSubmit, onCancel}) => {
   const {language} = useAppSelector(selectUserConfiguration);
   const {SAVE, CREATE_USER, EDIT_USER} = localization(language);
   const {NICKNAME, TEMPLE, QUALITY, HERO, STARS, STATUS} = globalLocalization(language);

@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useState, FC} from 'react';
 import styled from 'styled-components';
 import {useQuery} from '@tanstack/react-query';
-import {getUsersDetails} from 'api/users';
+import {getUsersDetails, SortOrder} from 'api/users';
 import TableRow from './TableRow';
 import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import Checkbox from '@mui/material/Checkbox';
@@ -9,8 +9,8 @@ import SvgIcon from '@mui/material/SvgIcon';
 import {useAppDispatch, useAppSelector} from 'services/hooks';
 import useQueryHooks from 'services/useQuery';
 import {selectUserConfiguration, setSortConfig, selectAllItems, clearSelection} from 'store/userSlice';
-import {localization} from 'pages/Main/MainUtils';
-import {globalLocalization, heroImages, qualityImages} from 'services/GlobalUtils';
+import {localization, TABLE_KEY_TO_SORT_FIELD} from 'pages/Main/MainUtils';
+import {globalLocalization} from 'services/GlobalUtils';
 import Gey from 'assets/images/gey.png';
 import Arrow from 'assets/icons/arrow.svg';
 import {font_body_4_bold} from 'theme/fonts';
@@ -28,9 +28,12 @@ const Table: FC<Props> = ({data, total}) => {
   const [, , isLaptop] = useQueryHooks();
   const {sortConfig, selectedItems, language} = useAppSelector(selectUserConfiguration);
 
+  const sortBy = sortConfig?.key ? TABLE_KEY_TO_SORT_FIELD[sortConfig.key] : undefined;
+  const sortOrder = sortConfig?.direction === 'desc' ? SortOrder.DESC : SortOrder.ASC;
+
   const {data: teamDetails = [], isPending} = useQuery({
-    queryKey: ['teamDetails'],
-    queryFn: () => getUsersDetails(true),
+    queryKey: ['teamDetails', sortBy, sortOrder],
+    queryFn: () => getUsersDetails({isActive: true, sortBy, sortOrder}),
   });
 
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
@@ -51,48 +54,38 @@ const Table: FC<Props> = ({data, total}) => {
     [teamDetails]
   );
 
-  const sortedData = useMemo(() => {
-    if (!sortConfig) return data;
+  const damageMap = useMemo(
+    () =>
+      data.reduce(
+        (acc, {name, damage}) => {
+          acc[name] = damage;
+          return acc;
+        },
+        {} as Record<string, number>
+      ),
+    [data]
+  );
 
-    const {key, direction} = sortConfig;
-    return [...data].sort((a, b) => {
-      const aDetails = teamDetailsMap[a.name] || {};
-      const bDetails = teamDetailsMap[b.name] || {};
+  const processedData = useMemo(() => {
+    if (sortBy) {
+      return teamDetails.map(({name}) => ({
+        name,
+        damage: damageMap[name] || 0,
+      }));
+    }
 
-      const getValue = (item: typeof a, details: typeof aDetails) => {
-        switch (key) {
-          case 'name':
-            return item.name;
-          case 'quality':
-            return Object.keys(qualityImages).indexOf(details.quality || '');
-          case 'gey':
-            return details.stars || 0;
-          case 'temple':
-            return details.temple || 0;
-          case 'hero':
-            return Object.keys(heroImages).indexOf(details.damageDealer || '');
-          case 'damage':
-            return item.damage;
-          case 'influence':
-            return (item.damage / total) * 100;
-          default:
-            return 0;
-        }
-      };
+    if (sortConfig?.key === 'damage' || sortConfig?.key === 'influence') {
+      const isAsc = sortConfig.direction === 'asc';
+      return [...data].sort((a, b) => (isAsc ? a.damage - b.damage : b.damage - a.damage));
+    }
 
-      const aValue = getValue(a, aDetails);
-      const bValue = getValue(b, bDetails);
-
-      if (aValue < bValue) return direction === 'asc' ? -1 : 1;
-      if (aValue > bValue) return direction === 'asc' ? 1 : -1;
-      return 0;
-    });
-  }, [data, sortConfig, total, teamDetails, teamDetailsMap]);
+    return data;
+  }, [teamDetails, damageMap, data, sortBy, sortConfig]);
 
   const toggleSelectAll = useCallback(
     (checked: boolean) =>
-      checked ? dispatch(selectAllItems(sortedData.map(({name}) => name))) : dispatch(clearSelection()),
-    [dispatch, sortedData]
+      checked ? dispatch(selectAllItems(processedData.map(({name}) => name))) : dispatch(clearSelection()),
+    [dispatch, processedData]
   );
 
   const {DAMAGE_TITLE, IMPACT, MORE} = localization(language);
@@ -171,7 +164,7 @@ const Table: FC<Props> = ({data, total}) => {
           );
         })}
       </Header>
-      {sortedData.map(({name, damage}, idx) => {
+      {processedData.map(({name, damage}, idx) => {
         const isChecked = selectedItems.includes(name);
         const details = teamDetailsMap[name] || {};
         const isExpanded = expandedRows.includes(name);
