@@ -14,14 +14,14 @@ import {localization} from '../StatisticUtils';
 import {globalLocalization} from 'services/GlobalUtils';
 import {useGuildData} from 'services/GlobalUtils';
 import {boldWeight} from 'theme/fonts';
-import {getGuildStatistic} from 'api/statistic';
+import {getGuildStatistic, StatisticItem} from 'api/statistic';
 
 const DamageGrow = () => {
   const {language} = useAppSelector(selectUserConfiguration);
 
-  const {data: guildStatistic = [], isPending} = useQuery({
-    queryKey: ['guildStatistic'],
-    queryFn: getGuildStatistic,
+  const {data: guildStatistic = []} = useQuery<StatisticItem[]>({
+    queryKey: ['guild-statistic'],
+    queryFn: () => getGuildStatistic(),
   });
 
   const guildData = useGuildData();

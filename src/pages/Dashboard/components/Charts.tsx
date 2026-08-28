@@ -15,10 +15,10 @@ import {
 } from 'chart.js';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
-import {getGuildStatistic} from 'api/statistic';
+import {getGuildStatistic, StatisticItem} from 'api/statistic';
 import BaseLoader from 'components/GeneralComponents/BaseLoader';
-import {localization} from '../DashboardUtils';
 import {BlockStyles} from 'pages/Dashboard/DashboardStyled';
+import {globalLocalization} from 'services/GlobalUtils';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler);
 
@@ -31,9 +31,9 @@ const Charts = () => {
     data: guildStatistic = [],
     isPending,
     isError,
-  } = useQuery({
+  } = useQuery<StatisticItem[]>({
     queryKey: ['guildStatistic'],
-    queryFn: getGuildStatistic,
+    queryFn: () => getGuildStatistic(),
   });
 
   const extractedData = useMemo(
@@ -41,7 +41,7 @@ const Charts = () => {
       guildStatistic.reduce<{labels: string[]; total: number[]; rate: number[]; newbies: number[]}>(
         (acc, {date, total, rate, newbies}) => {
           acc.labels.push(date);
-          acc.total.push(total);
+          acc.total.push(Number(total) || 0);
           acc.rate.push(rate);
           acc.newbies.push(newbies);
           return acc;
@@ -111,7 +111,7 @@ const Charts = () => {
     };
   };
 
-  const {TOTAL, RATE, NEW} = localization(language);
+  const {TOTAL, RATE, NEW} = globalLocalization(language);
 
   const chartsConfig: {key: StatKey; color: string; title: string}[] = [
     {key: 'total', color: 'rgba(72, 99, 235, 0.7)', title: TOTAL},

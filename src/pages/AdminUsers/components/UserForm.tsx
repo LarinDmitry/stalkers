@@ -12,7 +12,6 @@ import {font_header_5_bold} from 'theme/fonts';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {getImageComponent, globalLocalization, heroImages, qualityImages} from 'services/GlobalUtils';
-import {localization} from '../UsersUtils';
 
 interface UserFormProps {
   initialValues?: UsersDetails | null;
@@ -23,8 +22,7 @@ interface UserFormProps {
 
 const UserForm: FC<UserFormProps> = ({initialValues, isLoading, onSubmit, onCancel}) => {
   const {language} = useAppSelector(selectUserConfiguration);
-  const {SAVE, CREATE_USER, EDIT_USER} = localization(language);
-  const {NICKNAME, TEMPLE, QUALITY, HERO, STARS, STATUS} = globalLocalization(language);
+  const {NICKNAME, TEMPLE, QUALITY, HERO, STARS, STATUS, SAVE, EDIT, CREATE_ENTITY} = globalLocalization(language);
 
   const [formData, setFormData] = useState<CreateUserPayload>(() => {
     if (initialValues) {
@@ -50,7 +48,7 @@ const UserForm: FC<UserFormProps> = ({initialValues, isLoading, onSubmit, onCanc
       <HeaderRow>
         <BackBtn to="/admin/users" onClick={onCancel} disabled={isLoading} />
       </HeaderRow>
-      <Title>{initialValues ? `${EDIT_USER}: ${initialValues.name}` : CREATE_USER}</Title>
+      <Title>{initialValues ? `${EDIT}: ${initialValues.name}` : CREATE_ENTITY}</Title>
 
       <FormGrid>
         <TextField
@@ -130,7 +128,7 @@ const UserForm: FC<UserFormProps> = ({initialValues, isLoading, onSubmit, onCanc
           disabled={isLoading}
           startIcon={isLoading && <BaseLoader />}
         >
-          {initialValues ? SAVE : CREATE_USER}
+          {initialValues ? SAVE : CREATE_ENTITY}
         </Button>
       </FormFooter>
     </Wrapper>

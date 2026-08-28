@@ -11,7 +11,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
-import {useTopPlayersData} from 'services/GlobalUtils';
+import {globalLocalization, useTopPlayersData} from 'services/GlobalUtils';
 import {localization} from '../DashboardUtils';
 import {BlockStyles} from 'pages/Dashboard/DashboardStyled';
 import ArrowLink from 'assets/icons/arrow_link.svg';
@@ -31,7 +31,8 @@ const Tops = () => {
 
   const topDataList = useTopPlayersData(5);
 
-  const {NAME, TOTAL, DAMAGE, IMPACT, TOP_PLAYERS, OTHERS} = localization(language);
+  const {DAMAGE, IMPACT, TOP_PLAYERS, OTHERS} = localization(language);
+  const {NICKNAME, TOTAL} = globalLocalization(language);
 
   const tableData = useMemo(
     () =>
@@ -65,7 +66,7 @@ const Tops = () => {
     [TOP_PLAYERS, OTHERS, top5Percentage, total]
   );
 
-  const headerValues = [NAME, DAMAGE, IMPACT, ''];
+  const headerValues = [NICKNAME, DAMAGE, IMPACT, ''];
 
   if (isPending) return <BaseLoader />;
 

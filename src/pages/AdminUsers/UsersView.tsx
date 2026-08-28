@@ -28,11 +28,7 @@ import {selectUserConfiguration} from 'store/userSlice';
 import {localization} from 'pages/AdminUsers/UsersUtils';
 import Arrow from 'assets/icons/arrow.svg';
 import Gey from 'assets/images/gey.png';
-
-enum ViewMode {
-  LIST = 'list',
-  FORM = 'form',
-}
+import {ViewMode} from 'services/GlobalStyles';
 
 interface SortState {
   field: UserSortField;
@@ -53,8 +49,8 @@ const HEADER_SORT_MAP: Record<number, UserSortField> = {
 const UsersView = () => {
   const queryClient = useQueryClient();
   const {language} = useAppSelector(selectUserConfiguration);
-  const {ACTIVE, INACTIVE, ADD_USER, MEMBERS, EDIT_USER} = localization(language);
-  const {NICKNAME, TEMPLE, QUALITY, HERO, CREATE, UPDATE, STATUS} = globalLocalization(language);
+  const {ACTIVE, INACTIVE, MEMBERS} = localization(language);
+  const {NICKNAME, TEMPLE, QUALITY, ADD, EDIT, HERO, CREATE, UPDATE, STATUS} = globalLocalization(language);
 
   const [mode, setMode] = useState<ViewMode>(ViewMode.LIST);
   const [editingUser, setEditingUser] = useState<UsersDetails | null>(null);
@@ -133,7 +129,7 @@ const UsersView = () => {
               {MEMBERS} ({users.filter(({isActive}) => isActive).length}/{users.length})
             </Title>
             <Button variant="contained" color="primary" onClick={handleOpenAddForm}>
-              {ADD_USER}
+              {ADD}
             </Button>
           </HeaderRow>
 
@@ -176,7 +172,7 @@ const UsersView = () => {
                       color={user.isActive ? 'success' : 'default'}
                       size="medium"
                     />,
-                    <IconButton color="primary" onClick={() => handleOpenEditForm(user)} title={EDIT_USER}>
+                    <IconButton color="primary" onClick={() => handleOpenEditForm(user)} title={EDIT}>
                       <Edit />
                     </IconButton>,
                   ].map((item, id, arr) => (

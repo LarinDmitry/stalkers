@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import RU from 'assets/icons/language_ru.svg';
 import {useQuery} from '@tanstack/react-query';
-import {getGuildStatistic} from 'api/statistic';
+import {getGuildStatistic, StatisticItem} from 'api/statistic';
 import {getAllUsersDamage} from 'api/user-damage';
 import en from './GlobalLocalization/EN';
 import uk from './GlobalLocalization/UK';
@@ -78,15 +78,19 @@ export const useTopPlayersData = (topN: number): TopPlayerData[] => {
 };
 
 export const useGuildData = () => {
-  const {data: guildStatistic = []} = useQuery({
-    queryKey: ['guildStatistic'],
-    queryFn: getGuildStatistic,
+  const {data: guildStatistic = []} = useQuery<StatisticItem[]>({
+    queryKey: ['guild-statistic'],
+    queryFn: () => getGuildStatistic(),
   });
 
   return guildStatistic.map(({total, rate, date}, index, arr) => {
-    const previous = arr[index - 1]?.total || 0;
-    const percentageChange = index > 0 && previous > 0 ? ((total - previous) / previous) * 100 : null;
-    return {total, percentageChange, rate, date};
+    const currentTotal = Number(total) || 0;
+    const previousTotal = index > 0 ? Number(arr[index - 1]?.total) || 0 : 0;
+
+    const percentageChange =
+      index > 0 && previousTotal > 0 ? ((currentTotal - previousTotal) / previousTotal) * 100 : null;
+
+    return {total: currentTotal, percentageChange, rate, date};
   });
 };
 

@@ -10,7 +10,7 @@ import {localization} from '../DashboardUtils';
 import Increase from 'assets/icons/increase.svg';
 import Decrease from 'assets/icons/decrease.svg';
 import {font_body_2_bold, mediumWeight} from 'theme/fonts';
-import {getGuildStatistic} from 'api/statistic';
+import {getGuildStatistic, StatisticItem} from 'api/statistic';
 import {getAllUsersDamage} from 'api/user-damage';
 
 interface PlayerData {
@@ -24,9 +24,9 @@ const Bars = () => {
   const {language} = useAppSelector(selectUserConfiguration);
   const guildData = useGuildData();
 
-  const {data: guildStatistic = [], isPending: isStatisticLoading} = useQuery({
+  const {data: guildStatistic = [], isPending: isStatisticLoading} = useQuery<StatisticItem[]>({
     queryKey: ['guildStatistic'],
-    queryFn: getGuildStatistic,
+    queryFn: () => getGuildStatistic(),
   });
 
   const {data: latestZveks = [], isPending: isZveksLoading} = useQuery({
