@@ -10,11 +10,15 @@ import {selectUserConfiguration} from 'store/userSlice';
 import {localization} from './WelcomeUtils';
 import Background from 'assets/images/background.webp';
 import {font_body_2_reg, font_header_6_bold} from 'theme/fonts';
+import {useQuery} from '@tanstack/react-query';
+import {getHealth} from 'api/health';
 
 const WelcomeView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
+
+  const {} = useQuery({queryKey: ['health'], queryFn: getHealth});
 
   useEffect(() => {
     ReactGA.send({hitType: 'welcome', page: location.pathname});
