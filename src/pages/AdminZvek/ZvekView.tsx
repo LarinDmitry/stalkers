@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import {useNavigate} from 'react-router';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
@@ -17,7 +18,6 @@ import {
   CreateStatisticPayload,
 } from 'api/statistic';
 import StatisticForm from './components/StatisticForm';
-import Edit from 'assets/icons/edit.svg';
 import Delete from 'assets/icons/delete.svg';
 import {font_header_5_bold} from 'theme/fonts';
 import {getFormattedDate, globalLocalization} from 'services/GlobalUtils';
@@ -25,20 +25,30 @@ import {ViewMode} from 'services/GlobalStyles';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {localization} from './ZvekUtils';
+import {getAllUsersDamage, UserDamageItem} from 'api/user-damage';
+import Persons from 'assets/icons/persons.svg';
+import Edit from 'assets/icons/edit.svg';
+import PersonalInfo from 'assets/icons/personal_info.svg';
 
 const ZvekView = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const {language} = useAppSelector(selectUserConfiguration);
 
   const [mode, setMode] = useState<ViewMode>(ViewMode.LIST);
   const [editingRecord, setEditingRecord] = useState<StatisticItem | null>(null);
 
   const {STAT, SURE} = localization(language);
-  const {DATA, TOTAL, RATE, NEW, CREATE, ADD, EDIT, UPDATE, DELETE} = globalLocalization(language);
+  const {DATA, TOTAL, RATE, NEW, CREATE, ADD, EDIT, UPDATE, STATUS, DELETE} = globalLocalization(language);
 
   const {data: stats = [], isLoading} = useQuery({
     queryKey: ['guild-statistic', 'date'],
     queryFn: () => getGuildStatistic({sortBy: 'date'}),
+  });
+
+  const {data: usersDamage = [], isLoading: isDamageLoading} = useQuery<UserDamageItem[]>({
+    queryKey: ['all-users-damage'],
+    queryFn: getAllUsersDamage,
   });
 
   const createMutation = useMutation({
@@ -82,7 +92,17 @@ const ZvekView = () => {
   const handleFormSubmit = (payload: CreateStatisticPayload) =>
     editingRecord ? updateMutation.mutate({id: editingRecord.id, ...payload}) : createMutation.mutate(payload);
 
-  const tableHeaders = [DATA, TOTAL, RATE, NEW, CREATE, UPDATE, ''];
+  const getDamageStatusIcon = (recordDate: string) => {
+    const recordsForDate = usersDamage.flatMap(({info}) => info.filter(({date}) => date === recordDate));
+
+    return (
+      <PersonsIcon iscomplete={recordsForDate.length === 30} title={`Заповнено: ${recordsForDate.length} / 30`}>
+        <Persons />
+      </PersonsIcon>
+    );
+  };
+
+  const tableHeaders = [DATA, TOTAL, RATE, NEW, CREATE, UPDATE, STATUS, ''];
 
   return (
     <Wrapper>
@@ -118,8 +138,12 @@ const ZvekView = () => {
                   <TableCell>{record.newbies}</TableCell>
                   <TableCell>{getFormattedDate(record.createdAt)}</TableCell>
                   <TableCell>{getFormattedDate(record.updatedAt)}</TableCell>
+                  <TableCell>{getDamageStatusIcon(record.date)}</TableCell>
                   <TableCell align="right">
                     <ActionsCell>
+                      <IconButton onClick={() => navigate('/admin/user-damage', {state: {date: record.date}})}>
+                        <PersonalInfo />
+                      </IconButton>
                       <EditIcon color="primary" onClick={() => handleOpenEditForm(record)} title={EDIT}>
                         <Edit />
                       </EditIcon>
@@ -193,6 +217,17 @@ const DeleteIcon = styled(IconButton)`
 const EditIcon = styled(IconButton)`
   &.MuiButtonBase-root {
     fill: ${({theme}) => theme.colors.blue100};
+  }
+`;
+
+const PersonsIcon = styled(IconButton)<{iscomplete: boolean}>`
+  &.MuiButtonBase-root {
+    fill: ${({
+      theme: {
+        colors: {green100, orange100},
+      },
+      iscomplete,
+    }) => (iscomplete ? green100 : orange100)};
   }
 `;
 

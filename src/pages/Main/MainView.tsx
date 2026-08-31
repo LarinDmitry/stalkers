@@ -84,8 +84,8 @@ const MainView = () => {
         </Tooltip>
       </Header>
       <Content>
-        <Table data={tableData} total={guildTotal} />
-        <PieChart data={pieChartData} total={guildTotal} />
+        <Table data={tableData} total={Number(guildTotal) || 0} />
+        <PieChart data={pieChartData} total={Number(guildTotal) || 0} />
       </Content>
     </Wrapper>
   );

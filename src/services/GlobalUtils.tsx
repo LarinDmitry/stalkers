@@ -54,7 +54,9 @@ export const useTopPlayersData = (topN: number): TopPlayerData[] => {
 
   return latestZveks[0].info
     .map(({date, guildTotal}, index) => {
-      if (guildTotal === 0) return null;
+      const numericGuildTotal = Number(guildTotal) || 0;
+
+      if (numericGuildTotal === 0) return null;
 
       const topPlayers = latestZveks
         .map(({info, name}) => ({
@@ -65,13 +67,13 @@ export const useTopPlayersData = (topN: number): TopPlayerData[] => {
         .slice(0, topN);
 
       const topDamageSum = topPlayers.reduce((sum, {damage}) => sum + damage, 0);
-      const topDamagePercentage = (topDamageSum / guildTotal) * 100;
+      const topDamagePercentage = (topDamageSum / numericGuildTotal) * 100;
 
       return {
         date,
         topPlayers: topPlayers.map(({name}) => name),
         topDamagePercentage,
-        guildTotal,
+        guildTotal: numericGuildTotal,
       };
     })
     .filter((item): item is TopPlayerData => item !== null);

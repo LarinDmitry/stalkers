@@ -36,11 +36,14 @@ const Tops = () => {
 
   const tableData = useMemo(
     () =>
-      latestZveks.map(({name, info}) => ({
-        name,
-        damage: info[info.length - 1]?.damage ?? 0,
-        guildTotal: info[info.length - 1]?.guildTotal ?? 1,
-      })),
+      latestZveks.map(({name, info}) => {
+        const lastRecord = info[info.length - 1];
+        return {
+          name,
+          damage: lastRecord?.damage ?? 0,
+          guildTotal: Number(lastRecord?.guildTotal) || 1,
+        };
+      }),
     [latestZveks]
   );
 

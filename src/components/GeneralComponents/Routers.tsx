@@ -18,6 +18,7 @@ const NotFound = lazy(() => import('pages/NotFound/NotFoundView'));
 const Login = lazy(() => import('pages/AdminLogin/LoginView'));
 const AdminUsers = lazy(() => import('pages/AdminUsers/UsersView'));
 const AdminZvek = lazy(() => import('pages/AdminZvek/ZvekView'));
+const AdminUserDamage = lazy(() => import('pages/AdminUserDamage/UserDamageView'));
 
 const Routers = () => (
   <Fragment>
@@ -38,6 +39,7 @@ const Routers = () => (
       <Route path="/admin" element={<Navigate to="/admin/users" replace />} />
       <Route path="/admin/users" element={<AdminUsers />} />
       <Route path="/admin/zvek" element={<AdminZvek />} />
+      <Route path="/admin/user-damage" element={<AdminUserDamage />} />
     </Route>
     <Route path="*" element={<NotFound />} />
   </Fragment>

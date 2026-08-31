@@ -27,7 +27,13 @@ const DetailsView = () => {
     ReactGA.send({hitType: 'details', page: location.pathname});
   }, []);
 
-  const latestZvekValues = useMemo(() => latestZveks.find(({name}) => name === id)?.info || [], [id, latestZveks]);
+  const latestZvekValues = useMemo(() => {
+    const rawInfo = latestZveks.find(({name}) => name === id)?.info || [];
+    return rawInfo.map((item) => ({
+      ...item,
+      guildTotal: Number(item.guildTotal) || 0,
+    }));
+  }, [id, latestZveks]);
 
   const averageAllZveks = useMemo(
     () => latestZvekValues.reduce((acc, {damage}) => acc + damage, 0) / 3 || 0,
