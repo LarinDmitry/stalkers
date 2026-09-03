@@ -29,8 +29,6 @@ const TableRow = ({
   const [, , isLaptop] = useQuery();
   const {language} = useAppSelector(selectUserConfiguration);
 
-
-
   const rowData = useMemo(() => {
     const commonCells = [
       {

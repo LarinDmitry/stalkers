@@ -77,7 +77,9 @@ const UserDamageView = () => {
   return (
     <Wrapper>
       <BackBtn to="/admin/zvek" />
-      <Title>{SE_DAMAGE} {targetDate}</Title>
+      <Title>
+        {SE_DAMAGE} {targetDate}
+      </Title>
 
       {isUsersLoading || isDamageLoading ? (
         <BaseLoader />

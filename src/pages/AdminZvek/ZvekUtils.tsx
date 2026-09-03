@@ -13,7 +13,7 @@ export interface FormState {
   newbies: string;
 }
 
-export  const INITIAL_FORM_STATE: FormState = {
+export const INITIAL_FORM_STATE: FormState = {
   date: '',
   total: '',
   rate: '',

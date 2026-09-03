@@ -110,7 +110,10 @@ const LineChart: FC<Props> = ({data, title, averageTitle, average, stepped, with
       )}
       <Line data={chartData} options={options} />
       <SubInfo>
-        {averageTitle} <b>{((average || 0) / 1e9).toFixed(2)} {BILLION}</b>
+        {averageTitle}{' '}
+        <b>
+          {((average || 0) / 1e9).toFixed(2)} {BILLION}
+        </b>
       </SubInfo>
     </Wrapper>
   );

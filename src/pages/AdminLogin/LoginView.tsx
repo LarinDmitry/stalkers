@@ -1,5 +1,6 @@
-import React, {useState, FormEvent} from 'react';
-import {useNavigate} from 'react-router';
+import React, {useState, FormEvent, useEffect} from 'react';
+import {useLocation, useNavigate} from 'react-router';
+import ReactGA from 'react-ga4';
 import styled from 'styled-components';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -11,10 +12,15 @@ import {selectUserConfiguration} from 'store/userSlice';
 
 const LoginView = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    ReactGA.send({hitType: 'login', page: location.pathname});
+  }, [location.pathname]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

@@ -1,5 +1,7 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import styled from 'styled-components';
+import ReactGA from 'react-ga4';
+import {useLocation} from 'react-router';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -48,7 +50,9 @@ const HEADER_SORT_MAP: Record<number, UserSortField> = {
 
 const UsersView = () => {
   const queryClient = useQueryClient();
+  const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
+
   const {ACTIVE, INACTIVE, MEMBERS} = localization(language);
   const {NICKNAME, TEMPLE, QUALITY, ADD, EDIT, HERO, CREATE, UPDATE, STATUS} = globalLocalization(language);
 
@@ -83,6 +87,10 @@ const UsersView = () => {
       handleBackToList();
     },
   });
+
+  useEffect(() => {
+    ReactGA.send({hitType: 'user-damage', page: location.pathname});
+  }, [location.pathname]);
 
   const handleOpenAddForm = () => {
     setEditingUser(null);

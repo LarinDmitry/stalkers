@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {useNavigate} from 'react-router';
+import {useLocation, useNavigate} from 'react-router';
+import ReactGA from 'react-ga4';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
@@ -33,6 +34,7 @@ import PersonalInfo from 'assets/icons/personal_info.svg';
 const ZvekView = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
 
   const [mode, setMode] = useState<ViewMode>(ViewMode.LIST);
@@ -66,6 +68,10 @@ const ZvekView = () => {
       handleBackToList();
     },
   });
+
+  useEffect(() => {
+    ReactGA.send({hitType: 'user-damage', page: location.pathname});
+  }, [location.pathname]);
 
   const deleteMutation = useMutation({
     mutationFn: deleteGuildStatistic,
