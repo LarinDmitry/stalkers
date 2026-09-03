@@ -2,10 +2,12 @@ import React, {useState, FormEvent, useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router';
 import ReactGA from 'react-ga4';
 import styled from 'styled-components';
+import {loginAdmin} from 'api/login-auth';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
-import {globalLocalization, loginAdmin} from 'services/GlobalUtils';
+import CircularProgress from '@mui/material/CircularProgress';
+import {globalLocalization} from 'services/GlobalUtils';
 import {font_header_5_bold} from 'theme/fonts';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
@@ -14,6 +16,8 @@ const LoginView = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
@@ -22,9 +26,19 @@ const LoginView = () => {
     ReactGA.send({hitType: 'login', page: location.pathname});
   }, [location.pathname]);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    loginAdmin(login, password) ? navigate('/admin') : setError(true);
+    setError(false);
+    setIsLoading(true);
+
+    try {
+      const isSuccess = await loginAdmin(login, password);
+      isSuccess ? navigate('/admin/users') : setError(true);
+    } catch {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const {ADMIN_ENTER, ERROR_DATA, LOGIN, PASSWORD, ENTER} = globalLocalization(language);
@@ -41,6 +55,7 @@ const LoginView = () => {
           onChange={({target: {value}}) => setLogin(value)}
           fullWidth
           required
+          disabled={isLoading}
         />
         <TextField
           label={PASSWORD}
@@ -50,9 +65,10 @@ const LoginView = () => {
           onChange={({target: {value}}) => setPassword(value)}
           fullWidth
           required
+          disabled={isLoading}
         />
-        <Btn variant="contained" type="submit" size="large" fullWidth>
-          {ENTER}
+        <Btn variant="contained" type="submit" size="large" fullWidth disabled={isLoading}>
+          {isLoading ? <CircularProgress size={24} color="inherit" /> : ENTER}
         </Btn>
       </Form>
     </Wrapper>
@@ -86,6 +102,7 @@ const Title = styled.div`
 const Btn = styled(Button)`
   &.MuiButton-root {
     background: ${({theme}) => theme.colors.blue100};
+    min-height: 42px;
   }
 `;
 

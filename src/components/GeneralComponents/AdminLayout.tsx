@@ -1,9 +1,10 @@
 import React, {FC, useMemo, useState} from 'react';
 import {Navigate, Outlet, useLocation, Link} from 'react-router';
 import styled from 'styled-components';
+import {logoutAdmin} from 'api/login-auth';
 import SvgIcon from '@mui/material/SvgIcon';
 import Button from '@mui/material/Button';
-import {checkAuth, globalLocalization, logoutAdmin} from 'services/GlobalUtils';
+import {globalLocalization} from 'services/GlobalUtils';
 import {useAppSelector} from 'services/hooks';
 import {selectUserConfiguration} from 'store/userSlice';
 import {font_body_2_bold, font_header_4_bold} from 'theme/fonts';
@@ -12,7 +13,7 @@ import Persons from 'assets/icons/persons.svg';
 import Statistic from 'assets/icons/statistic.svg';
 
 const AdminLayout: FC = () => {
-  const isAuth = checkAuth();
+  const token = localStorage.getItem('token');
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
   const {LOGOUT, ADMIN_TITLE, USERS, SE_DATA} = globalLocalization(language);
@@ -32,10 +33,10 @@ const AdminLayout: FC = () => {
         text: SE_DATA,
       },
     ],
-    []
+    [USERS, SE_DATA]
   );
 
-  if (!isAuth) {
+  if (!token) {
     return <Navigate to="/admin/login" replace />;
   }
 

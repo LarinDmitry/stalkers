@@ -59,12 +59,12 @@ const WelcomeView = () => {
           {isLoading ? <CircularProgress size={24} color="inherit" /> : COME}
         </Inside>
 
-        {isLoading && <StatusText>{WAKE_UP}</StatusText>}
+        {isLoading && <Status>{WAKE_UP}</Status>}
 
         {isError && (
-          <StatusText iserror>
+          <Status iserror>
             {SERVER} <RetryLink onClick={() => refetch()}>{RETRY}</RetryLink>
-          </StatusText>
+          </Status>
         )}
       </Content>
     </Wrapper>
@@ -214,10 +214,15 @@ const Inside = styled(Button)`
   }
 `;
 
-const StatusText = styled.p<{iserror?: boolean}>`
+const Status = styled.div<{iserror?: boolean}>`
   margin-top: 1rem;
   font-size: 0.875rem;
-  color: ${({iserror}) => (iserror ? '#ff6b6b' : 'rgba(255, 255, 255, 0.8)')};
+  color: ${({
+    theme: {
+      colors: {gray000, red100},
+    },
+    iserror,
+  }) => (iserror ? red100 : gray000)};
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   animation: fadeIn 0.3s ease-in-out;
 
@@ -237,9 +242,9 @@ const RetryLink = styled.span`
   text-decoration: underline;
   cursor: pointer;
   font-weight: bold;
-  
+
   &:hover {
-    color: #fff;
+    color: ${({theme}) => theme.colors.gray000};
   }
 `;
 

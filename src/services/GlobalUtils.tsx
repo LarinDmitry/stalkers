@@ -134,24 +134,6 @@ export const languageOptions = [
   },
 ];
 
-const ADMIN_USERS = [{login: 'admin', password: '123456'}];
-
-export const checkAuth = (): boolean => localStorage.getItem('isAuth') === 'true';
-
-export const loginAdmin = (login: string, pass: string): boolean => {
-  const user = ADMIN_USERS.find((u) => u.login === login && u.password === pass);
-  if (user) {
-    localStorage.setItem('isAuth', 'true');
-    return true;
-  }
-  return false;
-};
-
-export const logoutAdmin = (): void => {
-  localStorage.removeItem('isAuth');
-  window.location.href = '/stalkers/admin/login';
-};
-
 export const qualityImages: {[key: string]: string} = {
   '': X,
   'b+': B,
