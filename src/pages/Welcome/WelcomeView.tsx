@@ -4,6 +4,7 @@ import ReactGA from 'react-ga4';
 import styled, {keyframes} from 'styled-components';
 import LanguageSelector from 'components/GeneralComponents/LanguageSelector';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import {useAppSelector} from 'services/hooks';
 import {welcomeTitleStyles} from 'services/GlobalStyled';
 import {selectUserConfiguration} from 'store/userSlice';
@@ -18,13 +19,18 @@ const WelcomeView = () => {
   const location = useLocation();
   const {language} = useAppSelector(selectUserConfiguration);
 
-  const {} = useQuery({queryKey: ['health'], queryFn: getHealth});
+  const {isLoading, isError, refetch} = useQuery({
+    queryKey: ['health'],
+    queryFn: getHealth,
+    retry: 3,
+    retryDelay: 3000,
+  });
 
   useEffect(() => {
     ReactGA.send({hitType: 'welcome', page: location.pathname});
   }, []);
 
-  const {WELCOME, COME} = localization(language);
+  const {WELCOME, COME, WAKE_UP, SERVER, RETRY} = localization(language);
 
   return (
     <Wrapper>
@@ -50,8 +56,16 @@ const WelcomeView = () => {
       <Content>
         <Title>{WELCOME}</Title>
         <Inside variant="contained" onClick={() => navigate('/dashboard')}>
-          {COME}
+          {isLoading ? <CircularProgress size={24} color="inherit" /> : COME}
         </Inside>
+
+        {isLoading && <StatusText>{WAKE_UP}</StatusText>}
+
+        {isError && (
+          <StatusText iserror>
+            {SERVER} <RetryLink onClick={() => refetch()}>{RETRY}</RetryLink>
+          </StatusText>
+        )}
       </Content>
     </Wrapper>
   );
@@ -197,6 +211,35 @@ const Inside = styled(Button)`
         0 3px 6px rgba(0, 0, 0, 0.2),
         0 0 15px rgb(122, 0, 204);
     }
+  }
+`;
+
+const StatusText = styled.p<{iserror?: boolean}>`
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: ${({iserror}) => (iserror ? '#ff6b6b' : 'rgba(255, 255, 255, 0.8)')};
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  animation: fadeIn 0.3s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+const RetryLink = styled.span`
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+  
+  &:hover {
+    color: #fff;
   }
 `;
 
