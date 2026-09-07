@@ -8,6 +8,7 @@ export default {
   STARS: 'Stars',
   CREATE: 'Created',
   UPDATE: 'Updated',
+  UPDATE_BY: 'Author',
   STATUS: 'Status',
   BILLION: 'B',
   BACK: 'Back',

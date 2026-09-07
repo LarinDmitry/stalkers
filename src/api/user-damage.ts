@@ -5,6 +5,7 @@ export interface UserDamageRecord {
   date: string;
   guildTotal: number | string;
   damageByDay: number[];
+  updatedBy?: string;
 }
 
 export interface UserDamageItem {

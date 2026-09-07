@@ -8,6 +8,7 @@ export interface StatisticItem {
   newbies: number;
   createdAt?: string;
   updatedAt?: string;
+  updatedBy?: string;
 }
 
 export interface CreateStatisticPayload {

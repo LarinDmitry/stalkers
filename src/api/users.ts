@@ -27,6 +27,7 @@ export interface UsersDetails {
   isActive: boolean;
   createdAt?: string;
   updatedAt?: string;
+  updatedBy?: string;
 }
 
 export type CreateUserPayload = Omit<UsersDetails, 'id' | 'createdAt' | 'updatedAt'>;

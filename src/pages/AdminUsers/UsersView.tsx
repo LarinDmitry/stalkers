@@ -54,7 +54,7 @@ const UsersView = () => {
   const {language} = useAppSelector(selectUserConfiguration);
 
   const {ACTIVE, INACTIVE, MEMBERS} = localization(language);
-  const {NICKNAME, TEMPLE, QUALITY, ADD, EDIT, HERO, CREATE, UPDATE, STATUS} = globalLocalization(language);
+  const {NICKNAME, TEMPLE, QUALITY, ADD, EDIT, HERO, CREATE, UPDATE, STATUS, UPDATE_BY} = globalLocalization(language);
 
   const [mode, setMode] = useState<ViewMode>(ViewMode.LIST);
   const [editingUser, setEditingUser] = useState<UsersDetails | null>(null);
@@ -126,7 +126,18 @@ const UsersView = () => {
 
   const isFormLoading = createMutation.isPending || updateMutation.isPending;
 
-  const tableHeaders = [NICKNAME, HERO, QUALITY, <img src={Gey} alt="gey" />, TEMPLE, CREATE, UPDATE, STATUS, ''];
+  const tableHeaders = [
+    NICKNAME,
+    HERO,
+    QUALITY,
+    <img src={Gey} alt="gey" />,
+    TEMPLE,
+    CREATE,
+    UPDATE,
+    UPDATE_BY,
+    STATUS,
+    '',
+  ];
 
   return (
     <Wrapper>
@@ -175,6 +186,7 @@ const UsersView = () => {
                     user.temple,
                     getFormattedDate(user.createdAt),
                     getFormattedDate(user.updatedAt),
+                    user.updatedBy,
                     <Chip
                       label={user.isActive ? ACTIVE : INACTIVE}
                       color={user.isActive ? 'success' : 'default'}

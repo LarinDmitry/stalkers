@@ -98,7 +98,10 @@ const UserDamageView = () => {
               <Card key={user.id}>
                 <Header>
                   <Id>{String(i + 1).padStart(2, '0')}</Id>
-                  <StatusIcon iscomplete={hasDamage}>{hasDamage ? <Check /> : <Info />}</StatusIcon>
+                  <Status>
+                    <StatusIcon iscomplete={hasDamage}>{hasDamage ? <Check /> : <Info />}</StatusIcon>
+                    {dateRecord && <Author>{dateRecord.updatedBy}</Author>}
+                  </Status>
                 </Header>
 
                 <Name>{user.name}</Name>
@@ -165,6 +168,17 @@ const Header = styled.div`
 const Id = styled.span`
   font-size: 0.85rem;
   font-weight: bold;
+`;
+
+const Status = styled.div`
+  display: flex;
+`;
+
+
+const Author = styled.div`
+  margin-left: 0.5rem;
+  color: ${({theme}) => theme.colors.gray080};
+  font-size: 0.85rem;
 `;
 
 const StatusIcon = styled.div<{iscomplete: boolean}>`

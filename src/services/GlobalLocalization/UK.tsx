@@ -8,6 +8,7 @@ export default {
   STARS: 'Зірки',
   CREATE: 'Створено',
   UPDATE: 'Оновлено',
+  UPDATE_BY: 'Автор',
   STATUS: 'Статус',
   BILLION: 'млд',
   BACK: 'Назад',

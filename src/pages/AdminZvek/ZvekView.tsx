@@ -41,7 +41,7 @@ const ZvekView = () => {
   const [editingRecord, setEditingRecord] = useState<StatisticItem | null>(null);
 
   const {STAT, SURE} = localization(language);
-  const {DATA, TOTAL, RATE, NEW, CREATE, ADD, EDIT, UPDATE, STATUS, DELETE} = globalLocalization(language);
+  const {DATA, TOTAL, RATE, NEW, CREATE, ADD, EDIT, UPDATE, UPDATE_BY, STATUS, DELETE} = globalLocalization(language);
 
   const {data: stats = [], isLoading} = useQuery({
     queryKey: ['guild-statistic', 'date'],
@@ -108,7 +108,7 @@ const ZvekView = () => {
     );
   };
 
-  const tableHeaders = [DATA, TOTAL, RATE, NEW, CREATE, UPDATE, STATUS, ''];
+  const tableHeaders = [DATA, TOTAL, RATE, NEW, CREATE, UPDATE, UPDATE_BY, STATUS, ''];
 
   return (
     <Wrapper>
@@ -144,6 +144,7 @@ const ZvekView = () => {
                   <TableCell>{record.newbies}</TableCell>
                   <TableCell>{getFormattedDate(record.createdAt)}</TableCell>
                   <TableCell>{getFormattedDate(record.updatedAt)}</TableCell>
+                  <TableCell>{record.updatedBy}</TableCell>
                   <TableCell>{getDamageStatusIcon(record.date)}</TableCell>
                   <TableCell align="right">
                     <ActionsCell>
