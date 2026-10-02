@@ -2,9 +2,10 @@ import React, {useState, useCallback, useEffect} from 'react';
 import styled from 'styled-components';
 import ReactGA from 'react-ga4';
 import {useLocation} from 'react-router';
-import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
+import {useQuery, useMutation, useQueryClient, keepPreviousData} from '@tanstack/react-query';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
+import Pagination from '@mui/material/Pagination';
 import Table from '@mui/material/Table';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
@@ -37,6 +38,8 @@ interface SortState {
   order: SortOrder;
 }
 
+const PAGE_SIZE = 6;
+
 const HEADER_SORT_MAP: Record<number, UserSortField> = {
   0: UserSortField.NAME,
   1: UserSortField.DAMAGE_DEALER,
@@ -63,14 +66,22 @@ const UsersView = () => {
     order: SortOrder.DESC,
   });
 
-  const {data: users = [], isLoading} = useQuery({
-    queryKey: ['admin-users', sortState?.field, sortState?.order],
+  const [page, setPage] = useState<number>(1);
+
+  const {data: usersPage, isLoading} = useQuery({
+    queryKey: ['admin-users', page, PAGE_SIZE, sortState?.field, sortState?.order],
     queryFn: () =>
       getUsersDetails({
+        page,
+        limit: PAGE_SIZE,
         sortBy: sortState?.field,
         sortOrder: sortState?.order,
       }),
+    placeholderData: keepPreviousData,
   });
+
+  const users = usersPage?.data ?? [];
+  const totalPages = usersPage?.meta.totalPages ?? 1;
 
   const createMutation = useMutation({
     mutationFn: createUser,
@@ -114,6 +125,7 @@ const UsersView = () => {
     const targetField = HEADER_SORT_MAP[i];
     if (!targetField) return;
 
+    setPage(1);
     setSortState((prev) => {
       if (prev?.field === targetField) {
         return prev.order === SortOrder.DESC
@@ -145,7 +157,7 @@ const UsersView = () => {
         <Card>
           <HeaderRow>
             <Title>
-              {MEMBERS} ({users.filter(({isActive}) => isActive).length}/{users.length})
+              {MEMBERS} ({usersPage?.meta.total ?? 0})
             </Title>
             <Button variant="contained" color="primary" onClick={handleOpenAddForm}>
               {ADD}
@@ -204,6 +216,11 @@ const UsersView = () => {
               ))}
             </Table>
           )}
+          {totalPages > 1 && (
+            <PaginationWrapper>
+              <Pagination count={totalPages} page={page} onChange={(_, value) => setPage(value)} color="primary" />
+            </PaginationWrapper>
+          )}
         </Card>
       ) : (
         <UserForm
@@ -261,6 +278,12 @@ const SortIcon = styled(SvgIcon)<{isAsc?: boolean}>`
     transform: rotate(${({isAsc}) => (isAsc ? 0 : '-180')}deg);
     transition: transform 0.2s ease;
   }
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
 `;
 
 const Title = styled.div`

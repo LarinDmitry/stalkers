@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {useLocation} from 'react-router';
-import {getUsersDetails, UsersDetails} from 'api/users';
+import {getAllUsersDetails, UsersDetails} from 'api/users';
 import {getAllUsersDamage, updateUserDamage, UserDamageItem} from 'api/user-damage';
 import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
 import Button from '@mui/material/Button';
@@ -31,8 +31,8 @@ const UserDamageView = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const {data: users = [], isLoading: isUsersLoading} = useQuery({
-    queryKey: ['admin-users'],
-    queryFn: () => getUsersDetails({isActive: true}),
+    queryKey: ['admin-users', 'active-all'],
+    queryFn: () => getAllUsersDetails({isActive: true}),
   });
 
   const {data: usersDamage = [], isLoading: isDamageLoading} = useQuery<UserDamageItem[]>({

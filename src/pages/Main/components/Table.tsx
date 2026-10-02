@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useState, FC} from 'react';
 import styled from 'styled-components';
 import {useQuery} from '@tanstack/react-query';
-import {getUsersDetails, SortOrder} from 'api/users';
+import {getAllUsersDetails, SortOrder} from 'api/users';
 import TableRow from './TableRow';
 import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import Checkbox from '@mui/material/Checkbox';
@@ -33,7 +33,7 @@ const Table: FC<Props> = ({data, total}) => {
 
   const {data: teamDetails = [], isPending} = useQuery({
     queryKey: ['teamDetails', sortBy, sortOrder],
-    queryFn: () => getUsersDetails({isActive: true, sortBy, sortOrder}),
+    queryFn: () => getAllUsersDetails({isActive: true, sortBy, sortOrder}),
   });
 
   const [expandedRows, setExpandedRows] = useState<string[]>([]);

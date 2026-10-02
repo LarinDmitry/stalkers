@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useLocation, useNavigate} from 'react-router';
 import ReactGA from 'react-ga4';
-import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
+import {useQuery, useMutation, useQueryClient, keepPreviousData} from '@tanstack/react-query';
 import Button from '@mui/material/Button';
+import Pagination from '@mui/material/Pagination';
 import Table from '@mui/material/Table';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
@@ -11,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 import BaseLoader from 'components/GeneralComponents/BaseLoader';
 import {
-  getGuildStatistic,
+  getGuildStatisticPage,
   createGuildStatistic,
   updateGuildStatistic,
   deleteGuildStatistic,
@@ -31,6 +32,8 @@ import Persons from 'assets/icons/persons.svg';
 import Edit from 'assets/icons/edit.svg';
 import PersonalInfo from 'assets/icons/personal_info.svg';
 
+const PAGE_SIZE = 6;
+
 const ZvekView = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -43,10 +46,16 @@ const ZvekView = () => {
   const {STAT, SURE} = localization(language);
   const {DATA, TOTAL, RATE, NEW, CREATE, ADD, EDIT, UPDATE, UPDATE_BY, STATUS, DELETE} = globalLocalization(language);
 
-  const {data: stats = [], isLoading} = useQuery({
-    queryKey: ['guild-statistic', 'date'],
-    queryFn: () => getGuildStatistic({sortBy: 'date'}),
+  const [page, setPage] = useState<number>(1);
+
+  const {data: statsPage, isLoading} = useQuery({
+    queryKey: ['guild-statistic', 'date', page, PAGE_SIZE],
+    queryFn: () => getGuildStatisticPage({page, limit: PAGE_SIZE, sortBy: 'date'}),
+    placeholderData: keepPreviousData,
   });
+
+  const stats = statsPage?.data ?? [];
+  const totalPages = statsPage?.meta.totalPages ?? 1;
 
   const {data: usersDamage = [], isLoading: isDamageLoading} = useQuery<UserDamageItem[]>({
     queryKey: ['all-users-damage'],
@@ -116,7 +125,7 @@ const ZvekView = () => {
         <Card>
           <HeaderRow>
             <Title>
-              {STAT} ({stats.length})
+              {STAT} ({statsPage?.meta.total ?? 0})
             </Title>
             <Button variant="contained" color="primary" onClick={handleOpenAddForm}>
               {ADD}
@@ -167,6 +176,11 @@ const ZvekView = () => {
               ))}
             </Table>
           )}
+          {totalPages > 1 && (
+            <PaginationWrapper>
+              <Pagination count={totalPages} page={page} onChange={(_, value) => setPage(value)} color="primary" />
+            </PaginationWrapper>
+          )}
         </Card>
       ) : (
         <StatisticForm
@@ -201,6 +215,12 @@ const HeaderRow = styled.div`
   justify-content: space-between;
   margin-bottom: 1.5rem;
   gap: 1rem;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
 `;
 
 const Title = styled.div`

@@ -1,4 +1,5 @@
 import {api} from 'services/axios';
+import {MAX_PAGE_LIMIT, Paginated} from './pagination';
 
 export enum UserSortField {
   ID = 'id',
@@ -37,10 +38,18 @@ export interface GetUsersParams {
   isActive?: boolean;
   sortBy?: UserSortField;
   sortOrder?: SortOrder;
+  page?: number;
+  limit?: number;
 }
 
-export const getUsersDetails = async (params?: GetUsersParams): Promise<UsersDetails[]> => {
-  const {data} = await api.get<UsersDetails[]>('/users', {params});
+export const getUsersDetails = async (params?: GetUsersParams): Promise<Paginated<UsersDetails>> => {
+  const {data} = await api.get<Paginated<UsersDetails>>('/users', {params});
+  return data;
+};
+
+// Backend always paginates (default limit 10), so for full lists request the max page size
+export const getAllUsersDetails = async (params?: Omit<GetUsersParams, 'page' | 'limit'>): Promise<UsersDetails[]> => {
+  const {data} = await getUsersDetails({...params, page: 1, limit: MAX_PAGE_LIMIT});
   return data;
 };
 

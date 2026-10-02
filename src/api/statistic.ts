@@ -1,4 +1,5 @@
 import {api} from 'services/axios';
+import {Paginated} from './pagination';
 
 export interface StatisticItem {
   id: number;
@@ -23,7 +24,18 @@ export interface GetStatisticParams {
   sortBy?: 'id' | 'date';
 }
 
+export interface GetStatisticPageParams {
+  page: number;
+  limit?: number;
+  sortBy?: 'id' | 'date';
+}
+
 export type UpdateStatisticPayload = CreateStatisticPayload;
+
+export const getGuildStatisticPage = async (params: GetStatisticPageParams): Promise<Paginated<StatisticItem>> => {
+  const {data} = await api.get<Paginated<StatisticItem>>('/statistic', {params});
+  return data;
+};
 
 export const getGuildStatistic = async (params?: GetStatisticParams): Promise<StatisticItem[]> => {
   const {data} = await api.get<StatisticItem[]>('/statistic', {params});
