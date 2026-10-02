@@ -1,0 +1,1 @@
+import{r as n,aL as s,aM as r}from"./index-BZFhFZGa.js";function o(e){return Object.keys(e).length===0}function u(e=null){const t=n.useContext(s);return!t||o(t)?e:t}const a=r();function m(e=a){return u(e)}export{m as a,u};
